@@ -1,0 +1,4 @@
+body { background: #02050a; color: #00f0ff; font-family: system-ui, sans-serif; text-align: center; padding: 10vh 2rem; }
+h1 { letter-spacing: 0.5px; }
+button { padding: .6rem 1rem; border: none; background: #00f0ff; color: #02050a; cursor: pointer; }
+pre { text-align: left; max-width: 600px; margin: 1rem auto; background: #07111a; padding: 1rem; border-radius: 8px; }
