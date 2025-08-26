@@ -15,7 +15,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;  // 👈 Railway asigna dinámicamente el puerto
 const JWT_SECRET = process.env.JWT_SECRET || "devsecret-change-me";
 
 app.use(helmet());
@@ -34,12 +34,7 @@ app.get("/api/test-db", async (_req, res) => {
   }
 });
 
-// =================== RUTAS PRINCIPALES (mínimas) ===================
-// (pon aquí tus endpoints /api/register, /api/login, /api/deposit, /api/spend, /api/ledger, /api/verify)
-// ===================================================================
-
-app.get("/", (_req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "index.html"));
+// Servidor escuchando
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor NEON-R corriendo en puerto ${PORT}`);
 });
-
-app.listen(PORT, () => console.log(`NEON-R server running on port ${PORT}`));
