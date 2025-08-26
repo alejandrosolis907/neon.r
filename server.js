@@ -1,35 +1,45 @@
-// server.js (CommonJS)
-const express = require("express");
-const path = require("path");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import dotenv from "dotenv";
+import crypto from "crypto";
+import path from "path";
+import { fileURLToPath } from "url";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import pool from "./db.js";
 
-// ⚠️ NO hacer nada “pesado” aquí (como conectar a DB) que pueda tumbar el server al arrancar
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
+const JWT_SECRET = process.env.JWT_SECRET || "devsecret-change-me";
 
-// Middlewares
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "frontend")));
 
-// Servir estáticos del frontend
-const publicDir = path.join(__dirname, "frontend");
-app.use(express.static(publicDir));
+// --- TEST de DB rápido
+app.get("/api/test-db", async (_req, res) => {
+  try {
+    const r = await pool.query("SELECT NOW()");
+    res.json({ ok: true, now: r.rows[0].now });
+  } catch (e) {
+    console.error("DB test error:", e);
+    res.status(500).json({ ok: false, error: "DB" });
+  }
+});
 
-// Healthchecks (Railway hace ping a estas rutas)
-app.get("/healthz", (_req, res) => res.status(200).send("ok"));
-app.get("/ping", (_req, res) => res.status(200).json({ pong: true }));
+// =================== RUTAS PRINCIPALES (mínimas) ===================
+// (pon aquí tus endpoints /api/register, /api/login, /api/deposit, /api/spend, /api/ledger, /api/verify)
+// ===================================================================
 
-// Ruta raíz → index.html
 app.get("/", (_req, res) => {
-  res.sendFile(path.join(publicDir, "index.html"));
+  res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 
-// Favicon (evita 502 por /favicon.ico)
-app.get("/favicon.ico", (_req, res) => {
-  res.sendFile(path.join(publicDir, "favicon.ico"));
-});
-
-// Arranque
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor NEÓN-R escuchando en: ${PORT}`);
-});
+app.listen(PORT, () => console.log(`NEON-R server running on port ${PORT}`));
