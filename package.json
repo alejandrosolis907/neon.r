@@ -2,14 +2,12 @@
   "name": "neon-r",
   "version": "1.0.0",
   "description": "NEÓN-R starter ready for Railway (Express + PostgreSQL)",
-  "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node server.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18.x"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
