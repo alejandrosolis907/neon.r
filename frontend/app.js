@@ -12,6 +12,7 @@
   const neoBalance = document.getElementById('neo-balance');
   const currencyDisplay = document.getElementById('currency-display');
   const rateDiv = document.getElementById('rate');
+  const settingsContainer = document.getElementById('settings-container');
   const settingsBtn = document.getElementById('settings-btn');
   const settingsModal = document.getElementById('settings-modal');
   const settingsCurrency = document.getElementById('settings-currency');
@@ -24,6 +25,7 @@
 
   const users = JSON.parse(localStorage.getItem('users') || '[]');
   let currentUser = null;
+  let rates = {};
 
   userCodeSpan.style.display = 'none';
 
@@ -73,6 +75,14 @@
   currencySelect.value = 'USD';
   settingsCurrency.value = 'USD';
 
+  fetch('https://open.er-api.com/v6/latest/USD')
+    .then(res => res.json())
+    .then(data => {
+      rates = data.rates || {};
+      updateCurrencyUI();
+    })
+    .catch(() => showToast('no se pudieron cargar las tasas'));
+
   function showCurrency() {
     registerForm.style.display = 'none';
     loginForm.style.display = 'none';
@@ -87,7 +97,14 @@
   function updateCurrencyUI() {
     const cur = currentUser?.currency || currencySelect.value || 'USD';
     amountInput.placeholder = `Cantidad en ${cur}`;
-    rateDiv.textContent = `1 ${cur} = 4 NEO`;
+    const neoPer = cur === 'MXN'
+      ? 1 / 3
+      : rates[cur]
+      ? 4 / rates[cur]
+      : null;
+    rateDiv.textContent = neoPer
+      ? `1 ${cur} = ${neoPer.toFixed(2)} NEO`
+      : 'cargando tasa...';
     currencyDisplay.textContent = `Divisa: ${cur}`;
     const hasCurrency = !!currentUser?.currency;
     currencyDisplay.style.display = hasCurrency ? 'block' : 'none';
@@ -121,6 +138,7 @@
     title.style.color = '#87ceeb';
     userCodeSpan.style.display = 'inline';
     userCodeSpan.textContent = user.code;
+    settingsContainer.style.display = 'flex';
     showCurrency();
     updateBalance();
     updateCurrencyUI();
@@ -202,7 +220,17 @@
       showToast('ingresa una cantidad válida');
       return;
     }
-    const neo = Math.round(amount * 4);
+    const cur = currentUser?.currency || currencySelect.value || 'USD';
+    const neoPer = cur === 'MXN'
+      ? 1 / 3
+      : rates[cur]
+      ? 4 / rates[cur]
+      : 0;
+    if (!neoPer) {
+      showToast('tasa no disponible');
+      return;
+    }
+    const neo = Math.round(amount * neoPer);
     currentUser.balance += neo;
     saveUsers();
     updateBalance();
