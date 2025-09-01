@@ -12,6 +12,7 @@
   const neoBalance = document.getElementById('neo-balance');
   const currencyDisplay = document.getElementById('currency-display');
   const rateDiv = document.getElementById('rate');
+  const settingsContainer = document.getElementById('settings-container');
   const settingsBtn = document.getElementById('settings-btn');
   const settingsModal = document.getElementById('settings-modal');
   const settingsCurrency = document.getElementById('settings-currency');
@@ -137,6 +138,7 @@
     title.style.color = '#87ceeb';
     userCodeSpan.style.display = 'inline';
     userCodeSpan.textContent = user.code;
+    settingsContainer.style.display = 'flex';
     showCurrency();
     updateBalance();
     updateCurrencyUI();
