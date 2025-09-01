@@ -119,6 +119,69 @@
       margin-top: 10px;
     }
 
+    .password-wrapper {
+      position: relative;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .toggle-password svg {
+      width: 20px;
+      height: 20px;
+      stroke: #d4af37;
+      fill: none;
+    }
+
+    .toggle-password svg circle {
+      fill: #d4af37;
+    }
+
+    #toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      padding: 10px 20px;
+      border-radius: 6px;
+      display: none;
+    }
+    #toast.show {
+      display: block;
+    }
+
+    .neo-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #d4af37;
+      background: #14141c;
+      display: inline-block;
+      margin-left: 8px;
+      position: relative;
+    }
+    .neo-icon::after {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #d4af37;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    button.buy {
+      background: #0f0;
+      color: #000;
+    }
+  
     /* Token dorado */
     .token {
       width: 60px;
@@ -155,76 +218,59 @@
 
   <div class="container">
     <div class="token"></div>
-    <h2>Accede a tu cuenta</h2>
+    <h2 id="title">Accede a tu cuenta</h2>
     <div class="tabs">
       <button id="tab-register" class="active">Registro</button>
       <button id="tab-login">Ingreso</button>
     </div>
 
     <form id="register-form" class="active">
-      <input type="text" placeholder="Nombre" required>
-      <input type="email" placeholder="Correo" required>
-      <input type="password" placeholder="Contraseña" required>
+      <input id="reg-first" type="text" placeholder="Nombre" required>
+      <input id="reg-last" type="text" placeholder="Apellidos" required>
+      <select id="reg-gender" required>
+        <option value="" disabled selected>Sexo</option>
+        <option value="hombre">Hombre</option>
+        <option value="mujer">Mujer</option>
+      </select>
+      <input id="reg-email" type="email" placeholder="Correo" required>
+      <div class="password-wrapper">
+        <input id="reg-password" type="password" placeholder="Contraseña" required>
+        <span class="toggle-password" data-target="reg-password">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </span>
+      </div>
+      <div class="password-wrapper">
+        <input id="reg-password2" type="password" placeholder="Confirmar Contraseña" required>
+        <span class="toggle-password" data-target="reg-password2">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </span>
+      </div>
       <button class="submit" type="submit">Crear Cuenta</button>
     </form>
 
     <form id="login-form">
-      <input type="email" placeholder="Correo" required>
-      <input type="password" placeholder="Contraseña" required>
+      <input id="login-email" type="email" placeholder="Correo" required>
+      <div class="password-wrapper">
+        <input id="login-password" type="password" placeholder="Contraseña" required>
+        <span class="toggle-password" data-target="login-password">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </span>
+      </div>
       <button class="submit" type="submit">Ingresar</button>
     </form>
 
     <div id="currency-section" style="display:none; margin-top:20px;">
+      <div id="balance"><span id="neo-balance">0 NEO</span><div class="neo-icon"></div></div>
       <select id="currency-select"></select>
+      <span id="currency-display" style="display:none;"></span>
+      <input type="number" id="amount" placeholder="Cantidad en USD">
+      <button id="buy-btn" class="buy" type="button">Comprar</button>
+      <div id="rate">1 USD = 4 NEO</div>
     </div>
   </div>
 
-  <script>
-    const tabRegister = document.getElementById("tab-register");
-    const tabLogin = document.getElementById("tab-login");
-    const registerForm = document.getElementById("register-form");
-    const loginForm = document.getElementById("login-form");
-    const currencySection = document.getElementById("currency-section");
-    const currencySelect = document.getElementById("currency-select");
+  <div id="toast"></div>
 
-    tabRegister.addEventListener("click", () => {
-      tabRegister.classList.add("active");
-      tabLogin.classList.remove("active");
-      registerForm.classList.add("active");
-      loginForm.classList.remove("active");
-    });
-
-    tabLogin.addEventListener("click", () => {
-      tabLogin.classList.add("active");
-      tabRegister.classList.remove("active");
-      loginForm.classList.add("active");
-      registerForm.classList.remove("active");
-    });
-
-    const displayNames = new Intl.DisplayNames(['es'], { type: 'currency' });
-    Intl.supportedValuesOf('currency').forEach(code => {
-      const option = document.createElement('option');
-      option.value = code;
-      option.textContent = `${code} - ${displayNames.of(code)}`;
-      currencySelect.appendChild(option);
-    });
-
-    function showCurrency() {
-      registerForm.style.display = "none";
-      loginForm.style.display = "none";
-      document.querySelector(".tabs").style.display = "none";
-      currencySection.style.display = "block";
-    }
-
-    registerForm.addEventListener("submit", e => {
-      e.preventDefault();
-      showCurrency();
-    });
-
-    loginForm.addEventListener("submit", e => {
-      e.preventDefault();
-      showCurrency();
-    });
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
