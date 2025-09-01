@@ -124,21 +124,31 @@
     }
     .toggle-password {
       position: absolute;
-      right: 10px;
+      right: 8px;
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
     }
-
-    .toggle-password svg {
+    .password-wrapper input {
+      padding-right: 40px;
+    }
+    .toggle-password .eye {
       width: 20px;
       height: 20px;
-      stroke: #d4af37;
+      stroke: #fff;
       fill: none;
     }
-
-    .toggle-password svg circle {
-      fill: #d4af37;
+    .toggle-password .eye circle {
+      fill: #fff;
+    }
+    .toggle-password .eye-open {
+      display: none;
+    }
+    .toggle-password.open .eye-open {
+      display: block;
+    }
+    .toggle-password.open .eye-closed {
+      display: none;
     }
 
     #toast {
@@ -236,13 +246,15 @@
       <div class="password-wrapper">
         <input id="reg-password" type="password" placeholder="Contraseña" required>
         <span class="toggle-password" data-target="reg-password">
-          <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg class="eye eye-closed" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          <svg class="eye eye-open" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
         </span>
       </div>
       <div class="password-wrapper">
         <input id="reg-password2" type="password" placeholder="Confirmar Contraseña" required>
         <span class="toggle-password" data-target="reg-password2">
-          <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg class="eye eye-closed" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          <svg class="eye eye-open" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
         </span>
       </div>
       <button class="submit" type="submit">Crear Cuenta</button>
@@ -253,7 +265,8 @@
       <div class="password-wrapper">
         <input id="login-password" type="password" placeholder="Contraseña" required>
         <span class="toggle-password" data-target="login-password">
-          <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg class="eye eye-closed" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          <svg class="eye eye-open" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
         </span>
       </div>
       <button class="submit" type="submit">Ingresar</button>
