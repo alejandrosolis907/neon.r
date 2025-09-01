@@ -12,6 +12,10 @@
   const neoBalance = document.getElementById('neo-balance');
   const currencyDisplay = document.getElementById('currency-display');
   const rateDiv = document.getElementById('rate');
+  const settingsBtn = document.getElementById('settings-btn');
+  const settingsModal = document.getElementById('settings-modal');
+  const settingsCurrency = document.getElementById('settings-currency');
+  const closeSettings = document.getElementById('close-settings');
 
   const users = JSON.parse(localStorage.getItem('users') || '[]');
   let currentUser = null;
@@ -49,12 +53,18 @@
 
   const displayNames = new Intl.DisplayNames(['es'], { type: 'currency' });
   Intl.supportedValuesOf('currency').forEach(code => {
-    const option = document.createElement('option');
-    option.value = code;
-    option.textContent = `${code} - ${displayNames.of(code)}`;
-    currencySelect.appendChild(option);
+    const text = `${code} - ${displayNames.of(code)}`;
+    const option1 = document.createElement('option');
+    option1.value = code;
+    option1.textContent = text;
+    currencySelect.appendChild(option1);
+    const option2 = document.createElement('option');
+    option2.value = code;
+    option2.textContent = text;
+    settingsCurrency.appendChild(option2);
   });
   currencySelect.value = 'USD';
+  settingsCurrency.value = 'USD';
 
   function showCurrency() {
     registerForm.style.display = 'none';
@@ -78,6 +88,7 @@
     if (hasCurrency) {
       currencySelect.value = cur;
     }
+    settingsCurrency.value = cur;
   }
 
   function loginUser(user) {
@@ -139,6 +150,21 @@
   currencySelect.addEventListener('change', () => {
     if (!currentUser) return;
     currentUser.currency = currencySelect.value;
+    saveUsers();
+    updateCurrencyUI();
+  });
+
+  settingsBtn.addEventListener('click', () => {
+    settingsModal.style.display = 'flex';
+  });
+
+  closeSettings.addEventListener('click', () => {
+    settingsModal.style.display = 'none';
+  });
+
+  settingsCurrency.addEventListener('change', () => {
+    if (!currentUser) return;
+    currentUser.currency = settingsCurrency.value;
     saveUsers();
     updateCurrencyUI();
   });
