@@ -118,7 +118,8 @@ button.submit{
   width:60px;
   height:60px;
   border-radius:50%;
-  background:radial-gradient(circle, var(--gold) 40%, #b8860b 100%);
+  border:6px solid var(--gold);
+  background:var(--panel);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -127,8 +128,8 @@ button.submit{
 }
 .token::after{
   content:'';
-  width:10px;
-  height:10px;
+  width:12px;
+  height:12px;
   border-radius:50%;
   background:var(--gold);
 }

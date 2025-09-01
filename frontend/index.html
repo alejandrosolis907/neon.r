@@ -124,7 +124,8 @@
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: radial-gradient(circle, #d4af37 40%, #b8860b 100%);
+      border: 6px solid #d4af37;
+      background: #14141c;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -133,8 +134,8 @@
     }
     .token::after {
       content: '';
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: #d4af37;
     }
@@ -164,11 +165,6 @@
       <input type="text" placeholder="Nombre" required>
       <input type="email" placeholder="Correo" required>
       <input type="password" placeholder="Contraseña" required>
-      <select>
-        <option value="MXN">MXN - Peso Mexicano</option>
-        <option value="USD">USD - Dólar</option>
-        <option value="EUR">EUR - Euro</option>
-      </select>
       <button class="submit" type="submit">Crear Cuenta</button>
     </form>
 
@@ -177,6 +173,10 @@
       <input type="password" placeholder="Contraseña" required>
       <button class="submit" type="submit">Ingresar</button>
     </form>
+
+    <div id="currency-section" style="display:none; margin-top:20px;">
+      <select id="currency-select"></select>
+    </div>
   </div>
 
   <script>
@@ -184,6 +184,8 @@
     const tabLogin = document.getElementById("tab-login");
     const registerForm = document.getElementById("register-form");
     const loginForm = document.getElementById("login-form");
+    const currencySection = document.getElementById("currency-section");
+    const currencySelect = document.getElementById("currency-select");
 
     tabRegister.addEventListener("click", () => {
       tabRegister.classList.add("active");
@@ -197,6 +199,31 @@
       tabRegister.classList.remove("active");
       loginForm.classList.add("active");
       registerForm.classList.remove("active");
+    });
+
+    const displayNames = new Intl.DisplayNames(['es'], { type: 'currency' });
+    Intl.supportedValuesOf('currency').forEach(code => {
+      const option = document.createElement('option');
+      option.value = code;
+      option.textContent = `${code} - ${displayNames.of(code)}`;
+      currencySelect.appendChild(option);
+    });
+
+    function showCurrency() {
+      registerForm.style.display = "none";
+      loginForm.style.display = "none";
+      document.querySelector(".tabs").style.display = "none";
+      currencySection.style.display = "block";
+    }
+
+    registerForm.addEventListener("submit", e => {
+      e.preventDefault();
+      showCurrency();
+    });
+
+    loginForm.addEventListener("submit", e => {
+      e.preventDefault();
+      showCurrency();
     });
   </script>
 </body>
