@@ -1,0 +1,391 @@
+diff --git a/frontend/app.js b/frontend/app.js
+index fd77fb9866b996c235233bb30864632a6dc4aa9d..a2a8b9cf10ac0c03c99f2cbe9ca9d12fe9862834 100644
+--- a/frontend/app.js
++++ b/frontend/app.js
+@@ -1,21 +1,157 @@
+-// UI logic for tabs (Registro / Ingreso)
+ (function () {
+   const tabRegister = document.getElementById('tab-register');
+   const tabLogin = document.getElementById('tab-login');
+   const registerForm = document.getElementById('register-form');
+   const loginForm = document.getElementById('login-form');
++  const codeForm = document.getElementById('code-form');
++  const currencySection = document.getElementById('currency-section');
++  const currencySelect = document.getElementById('currency-select');
++  const amountInput = document.getElementById('amount');
++  const buyBtn = document.getElementById('buy-btn');
++  const title = document.getElementById('title');
++  const toast = document.getElementById('toast');
++  const neoBalance = document.getElementById('neo-balance');
++
++  const users = JSON.parse(localStorage.getItem('users') || '[]');
++  let currentEmail = null;
++  let currentUser = null;
++
++  function saveUsers() {
++    localStorage.setItem('users', JSON.stringify(users));
++  }
++
++  function showToast(msg) {
++    toast.textContent = msg;
++    toast.classList.add('show');
++    setTimeout(() => toast.classList.remove('show'), 3000);
++  }
+ 
+   function activate(which) {
+     const isRegister = which === 'register';
+     tabRegister.classList.toggle('active', isRegister);
+     tabLogin.classList.toggle('active', !isRegister);
+     registerForm.classList.toggle('active', isRegister);
+     loginForm.classList.toggle('active', !isRegister);
++    codeForm.classList.remove('active');
+   }
+ 
+   tabRegister?.addEventListener('click', () => activate('register'));
+   tabLogin?.addEventListener('click', () => activate('login'));
+-
+-  // default
+   activate('register');
++
++  document.querySelectorAll('.toggle-password').forEach(btn => {
++    btn.addEventListener('click', () => {
++      const input = document.getElementById(btn.dataset.target);
++      input.type = input.type === 'password' ? 'text' : 'password';
++    });
++  });
++
++  const displayNames = new Intl.DisplayNames(['es'], { type: 'currency' });
++  Intl.supportedValuesOf('currency').forEach(code => {
++    const option = document.createElement('option');
++    option.value = code;
++    option.textContent = `${code} - ${displayNames.of(code)}`;
++    currencySelect.appendChild(option);
++  });
++
++  function showCurrency() {
++    registerForm.style.display = 'none';
++    loginForm.style.display = 'none';
++    codeForm.style.display = 'none';
++    document.querySelector('.tabs').style.display = 'none';
++    currencySection.style.display = 'block';
++  }
++
++  function updateBalance() {
++    neoBalance.textContent = `${currentUser.balance} NEO`;
++  }
++
++  function loginUser(user) {
++    currentUser = user;
++    title.textContent = `${user.first} bienvenido a NEÓN-R`;
++    showCurrency();
++    updateBalance();
++  }
++
++  registerForm.addEventListener('submit', e => {
++    e.preventDefault();
++    const first = document.getElementById('reg-first').value.trim();
++    const last = document.getElementById('reg-last').value.trim();
++    const gender = document.getElementById('reg-gender').value;
++    const email = document.getElementById('reg-email').value.trim().toLowerCase();
++    const pass = document.getElementById('reg-password').value;
++    const pass2 = document.getElementById('reg-password2').value;
++
++    if (users.some(u => u.first.toLowerCase() === first.toLowerCase())) {
++      showToast('este nombre ya está registrado');
++      return;
++    }
++    if (users.some(u => u.email === email)) {
++      showToast('este correo ya existe');
++      return;
++    }
++    if (!/^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(pass)) {
++      showToast('la contraseña debe tener 8 letras y un número');
++      return;
++    }
++    if (pass !== pass2) {
++      showToast('las contraseñas no coinciden');
++      return;
++    }
++
++    const code = Math.floor(100000 + Math.random() * 900000).toString();
++    users.push({ first, last, gender, email, pass, code, confirmed: false, balance: 0 });
++    saveUsers();
++    currentEmail = email;
++    registerForm.classList.remove('active');
++    codeForm.classList.add('active');
++    showToast('código enviado');
++  });
++
++  codeForm.addEventListener('submit', e => {
++    e.preventDefault();
++    const input = document.getElementById('code-input').value.trim();
++    const user = users.find(u => u.email === currentEmail);
++    if (user && user.code === input) {
++      user.confirmed = true;
++      saveUsers();
++      loginUser(user);
++    } else {
++      showToast('código incorrecto');
++    }
++  });
++
++  loginForm.addEventListener('submit', e => {
++    e.preventDefault();
++    const email = document.getElementById('login-email').value.trim().toLowerCase();
++    const pass = document.getElementById('login-password').value;
++    const user = users.find(u => u.email === email);
++    if (!user) {
++      showToast('este correo no existe');
++      return;
++    }
++    if (user.pass !== pass) {
++      showToast('contraseña incorrecta');
++      return;
++    }
++    if (!user.confirmed) {
++      showToast('debes confirmar tu correo');
++      return;
++    }
++    loginUser(user);
++  });
++
++  buyBtn.addEventListener('click', () => {
++    const amount = parseFloat(amountInput.value);
++    if (isNaN(amount) || amount <= 0) {
++      showToast('ingresa una cantidad válida');
++      return;
++    }
++    const neo = Math.round(amount * 4);
++    currentUser.balance += neo;
++    saveUsers();
++    updateBalance();
++    showToast(`compraste ${neo} NEO`);
++  });
+ })();
++
+diff --git a/frontend/index.html b/frontend/index.html
+index 4577d3a7e165df710e7226bd2a65aa0cd1b1d37b..d9ac205774b6b6e8e93446ef2e7afc7287af6bf4 100644
+--- a/frontend/index.html
++++ b/frontend/index.html
+@@ -97,134 +97,167 @@
+     form {
+       display: none;
+       flex-direction: column;
+     }
+     form.active {
+       display: flex;
+     }
+     input, select {
+       padding: 10px;
+       margin: 10px 0;
+       border-radius: 6px;
+       border: 1px solid #333;
+       background: #0f0f1a;
+       color: #fff;
+     }
+     button.submit {
+       background: #d4af37;
+       border: none;
+       padding: 12px;
+       font-weight: bold;
+       border-radius: 6px;
+       cursor: pointer;
+       margin-top: 10px;
+     }
+ 
++    .password-wrapper {
++      position: relative;
++    }
++    .toggle-password {
++      position: absolute;
++      right: 10px;
++      top: 50%;
++      transform: translateY(-50%);
++      cursor: pointer;
++    }
++
++    #toast {
++      position: fixed;
++      top: 20px;
++      left: 50%;
++      transform: translateX(-50%);
++      background: #333;
++      padding: 10px 20px;
++      border-radius: 6px;
++      display: none;
++    }
++    #toast.show {
++      display: block;
++    }
++
++    .neo-icon {
++      width: 20px;
++      height: 20px;
++      border-radius: 50%;
++      border: 2px solid #d4af37;
++      background: #14141c;
++      display: inline-block;
++      margin-left: 8px;
++      position: relative;
++    }
++    .neo-icon::after {
++      content: '';
++      width: 4px;
++      height: 4px;
++      border-radius: 50%;
++      background: #d4af37;
++      position: absolute;
++      top: 50%;
++      left: 50%;
++      transform: translate(-50%, -50%);
++    }
++
++    button.buy {
++      background: #0f0;
++      color: #000;
++    }
++  
+     /* Token dorado */
+     .token {
+       width: 60px;
+       height: 60px;
+       border-radius: 50%;
+       border: 6px solid #d4af37;
+       background: #14141c;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       margin: 0 auto 20px;
+       box-shadow: 0 0 10px #d4af37;
+     }
+     .token::after {
+       content: '';
+       width: 12px;
+       height: 12px;
+       border-radius: 50%;
+       background: #d4af37;
+     }
+   </style>
+ </head>
+ <body>
+   <!-- Pantalla de bienvenida -->
+   <div id="splash">
+     <img src="logo.png" alt="Logo NEO EON">
+     <h1>Bienvenido a NEÓN-R</h1>
+   </div>
+ 
+   <header>
+     <img src="logo.png" alt="Logo">
+     <div class="status">Sistema en línea</div>
+   </header>
+ 
+   <div class="container">
+     <div class="token"></div>
+-    <h2>Accede a tu cuenta</h2>
++    <h2 id="title">Accede a tu cuenta</h2>
+     <div class="tabs">
+       <button id="tab-register" class="active">Registro</button>
+       <button id="tab-login">Ingreso</button>
+     </div>
+ 
+     <form id="register-form" class="active">
+-      <input type="text" placeholder="Nombre" required>
+-      <input type="email" placeholder="Correo" required>
+-      <input type="password" placeholder="Contraseña" required>
++      <input id="reg-first" type="text" placeholder="Nombre" required>
++      <input id="reg-last" type="text" placeholder="Apellidos" required>
++      <select id="reg-gender" required>
++        <option value="" disabled selected>Sexo</option>
++        <option value="hombre">Hombre</option>
++        <option value="mujer">Mujer</option>
++      </select>
++      <input id="reg-email" type="email" placeholder="Correo" required>
++      <div class="password-wrapper">
++        <input id="reg-password" type="password" placeholder="Contraseña" required>
++        <span class="toggle-password" data-target="reg-password">👁️</span>
++      </div>
++      <div class="password-wrapper">
++        <input id="reg-password2" type="password" placeholder="Confirmar Contraseña" required>
++        <span class="toggle-password" data-target="reg-password2">👁️</span>
++      </div>
+       <button class="submit" type="submit">Crear Cuenta</button>
+     </form>
+ 
+     <form id="login-form">
+-      <input type="email" placeholder="Correo" required>
+-      <input type="password" placeholder="Contraseña" required>
++      <input id="login-email" type="email" placeholder="Correo" required>
++      <div class="password-wrapper">
++        <input id="login-password" type="password" placeholder="Contraseña" required>
++        <span class="toggle-password" data-target="login-password">👁️</span>
++      </div>
+       <button class="submit" type="submit">Ingresar</button>
+     </form>
+ 
++    <form id="code-form">
++      <input id="code-input" type="text" placeholder="Código de verificación" required>
++      <button class="submit" type="submit">Confirmar Código</button>
++    </form>
++
+     <div id="currency-section" style="display:none; margin-top:20px;">
++      <div id="balance"><span id="neo-balance">0 NEO</span><div class="neo-icon"></div></div>
+       <select id="currency-select"></select>
++      <input type="number" id="amount" placeholder="Cantidad en USD">
++      <button id="buy-btn" class="buy" type="button">Comprar</button>
++      <div id="rate">1 USD = 4 NEO</div>
+     </div>
+   </div>
+ 
+-  <script>
+-    const tabRegister = document.getElementById("tab-register");
+-    const tabLogin = document.getElementById("tab-login");
+-    const registerForm = document.getElementById("register-form");
+-    const loginForm = document.getElementById("login-form");
+-    const currencySection = document.getElementById("currency-section");
+-    const currencySelect = document.getElementById("currency-select");
+-
+-    tabRegister.addEventListener("click", () => {
+-      tabRegister.classList.add("active");
+-      tabLogin.classList.remove("active");
+-      registerForm.classList.add("active");
+-      loginForm.classList.remove("active");
+-    });
+-
+-    tabLogin.addEventListener("click", () => {
+-      tabLogin.classList.add("active");
+-      tabRegister.classList.remove("active");
+-      loginForm.classList.add("active");
+-      registerForm.classList.remove("active");
+-    });
+-
+-    const displayNames = new Intl.DisplayNames(['es'], { type: 'currency' });
+-    Intl.supportedValuesOf('currency').forEach(code => {
+-      const option = document.createElement('option');
+-      option.value = code;
+-      option.textContent = `${code} - ${displayNames.of(code)}`;
+-      currencySelect.appendChild(option);
+-    });
+-
+-    function showCurrency() {
+-      registerForm.style.display = "none";
+-      loginForm.style.display = "none";
+-      document.querySelector(".tabs").style.display = "none";
+-      currencySection.style.display = "block";
+-    }
+-
+-    registerForm.addEventListener("submit", e => {
+-      e.preventDefault();
+-      showCurrency();
+-    });
+-
+-    loginForm.addEventListener("submit", e => {
+-      e.preventDefault();
+-      showCurrency();
+-    });
+-  </script>
++  <div id="toast"></div>
++
++  <script src="app.js"></script>
+ </body>
+ </html>
+

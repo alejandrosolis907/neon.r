@@ -1,0 +1,190 @@
+diff --git a/frontend/index.html b/frontend/index.html
+index 7c77a5b00802bf35db0261e078c882871acee306..4577d3a7e165df710e7226bd2a65aa0cd1b1d37b 100644
+--- a/frontend/index.html
++++ b/frontend/index.html
+@@ -102,102 +102,129 @@
+       display: flex;
+     }
+     input, select {
+       padding: 10px;
+       margin: 10px 0;
+       border-radius: 6px;
+       border: 1px solid #333;
+       background: #0f0f1a;
+       color: #fff;
+     }
+     button.submit {
+       background: #d4af37;
+       border: none;
+       padding: 12px;
+       font-weight: bold;
+       border-radius: 6px;
+       cursor: pointer;
+       margin-top: 10px;
+     }
+ 
+     /* Token dorado */
+     .token {
+       width: 60px;
+       height: 60px;
+       border-radius: 50%;
+-      background: radial-gradient(circle, #d4af37 40%, #b8860b 100%);
++      border: 6px solid #d4af37;
++      background: #14141c;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       margin: 0 auto 20px;
+       box-shadow: 0 0 10px #d4af37;
+     }
+     .token::after {
+       content: '';
+-      width: 10px;
+-      height: 10px;
++      width: 12px;
++      height: 12px;
+       border-radius: 50%;
+       background: #d4af37;
+     }
+   </style>
+ </head>
+ <body>
+   <!-- Pantalla de bienvenida -->
+   <div id="splash">
+     <img src="logo.png" alt="Logo NEO EON">
+     <h1>Bienvenido a NEÓN-R</h1>
+   </div>
+ 
+   <header>
+     <img src="logo.png" alt="Logo">
+     <div class="status">Sistema en línea</div>
+   </header>
+ 
+   <div class="container">
+     <div class="token"></div>
+     <h2>Accede a tu cuenta</h2>
+     <div class="tabs">
+       <button id="tab-register" class="active">Registro</button>
+       <button id="tab-login">Ingreso</button>
+     </div>
+ 
+     <form id="register-form" class="active">
+       <input type="text" placeholder="Nombre" required>
+       <input type="email" placeholder="Correo" required>
+       <input type="password" placeholder="Contraseña" required>
+-      <select>
+-        <option value="MXN">MXN - Peso Mexicano</option>
+-        <option value="USD">USD - Dólar</option>
+-        <option value="EUR">EUR - Euro</option>
+-      </select>
+       <button class="submit" type="submit">Crear Cuenta</button>
+     </form>
+ 
+     <form id="login-form">
+       <input type="email" placeholder="Correo" required>
+       <input type="password" placeholder="Contraseña" required>
+       <button class="submit" type="submit">Ingresar</button>
+     </form>
++
++    <div id="currency-section" style="display:none; margin-top:20px;">
++      <select id="currency-select"></select>
++    </div>
+   </div>
+ 
+   <script>
+     const tabRegister = document.getElementById("tab-register");
+     const tabLogin = document.getElementById("tab-login");
+     const registerForm = document.getElementById("register-form");
+     const loginForm = document.getElementById("login-form");
++    const currencySection = document.getElementById("currency-section");
++    const currencySelect = document.getElementById("currency-select");
+ 
+     tabRegister.addEventListener("click", () => {
+       tabRegister.classList.add("active");
+       tabLogin.classList.remove("active");
+       registerForm.classList.add("active");
+       loginForm.classList.remove("active");
+     });
+ 
+     tabLogin.addEventListener("click", () => {
+       tabLogin.classList.add("active");
+       tabRegister.classList.remove("active");
+       loginForm.classList.add("active");
+       registerForm.classList.remove("active");
+     });
++
++    const displayNames = new Intl.DisplayNames(['es'], { type: 'currency' });
++    Intl.supportedValuesOf('currency').forEach(code => {
++      const option = document.createElement('option');
++      option.value = code;
++      option.textContent = `${code} - ${displayNames.of(code)}`;
++      currencySelect.appendChild(option);
++    });
++
++    function showCurrency() {
++      registerForm.style.display = "none";
++      loginForm.style.display = "none";
++      document.querySelector(".tabs").style.display = "none";
++      currencySection.style.display = "block";
++    }
++
++    registerForm.addEventListener("submit", e => {
++      e.preventDefault();
++      showCurrency();
++    });
++
++    loginForm.addEventListener("submit", e => {
++      e.preventDefault();
++      showCurrency();
++    });
+   </script>
+ </body>
+ </html>
+diff --git a/frontend/style.css b/frontend/style.css
+index ee5df84fdaa5abbbc1ed94a3102666c218476ae8..f6adcbdb254d9d39b19335dab4faf2fbef34fc7c 100644
+--- a/frontend/style.css
++++ b/frontend/style.css
+@@ -96,39 +96,40 @@ h2{
+ form{display:none;flex-direction:column}
+ form.active{display:flex}
+ input, select{
+   padding:10px;
+   margin:10px 0;
+   border-radius:6px;
+   border:1px solid var(--border);
+   background:var(--input);
+   color:var(--text);
+ }
+ button.submit{
+   background:var(--gold);
+   border:none;
+   padding:12px;
+   font-weight:bold;
+   border-radius:6px;
+   cursor:pointer;
+   margin-top:10px;
+ }
+ 
+ /* Token dorado */
+ .token{
+   width:60px;
+   height:60px;
+   border-radius:50%;
+-  background:radial-gradient(circle, var(--gold) 40%, #b8860b 100%);
++  border:6px solid var(--gold);
++  background:var(--panel);
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   margin:0 auto 20px;
+   box-shadow:0 0 10px var(--gold);
+ }
+ .token::after{
+   content:'';
+-  width:10px;
+-  height:10px;
++  width:12px;
++  height:12px;
+   border-radius:50%;
+   background:var(--gold);
+ }
