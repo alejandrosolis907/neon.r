@@ -116,7 +116,9 @@
   function loginUser(user) {
     ensureCode(user);
     currentUser = user;
-    title.textContent = `${user.first} bienvenido a NEÓN-R`;
+    const greet = user.gender === 'mujer' ? 'bienvenida' : 'bienvenido';
+    title.textContent = `${user.first} ${greet} a NEÓN-R`;
+    title.style.color = '#87ceeb';
     userCodeSpan.style.display = 'inline';
     userCodeSpan.textContent = user.code;
     showCurrency();
