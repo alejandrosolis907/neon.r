@@ -11,6 +11,8 @@
   const title = document.getElementById('title');
   const toast = document.getElementById('toast');
   const neoBalance = document.getElementById('neo-balance');
+  const currencyDisplay = document.getElementById('currency-display');
+  const rateDiv = document.getElementById('rate');
 
   const users = JSON.parse(localStorage.getItem('users') || '[]');
   let currentEmail = null;
@@ -53,6 +55,7 @@
     option.textContent = `${code} - ${displayNames.of(code)}`;
     currencySelect.appendChild(option);
   });
+  currencySelect.value = 'USD';
 
   function showCurrency() {
     registerForm.style.display = 'none';
@@ -66,11 +69,25 @@
     neoBalance.textContent = `${currentUser.balance} NEO`;
   }
 
+  function updateCurrencyUI() {
+    const cur = currentUser?.currency || currencySelect.value || 'USD';
+    amountInput.placeholder = `Cantidad en ${cur}`;
+    rateDiv.textContent = `1 ${cur} = 4 NEO`;
+    currencyDisplay.textContent = `Divisa: ${cur}`;
+    const hasCurrency = !!currentUser?.currency;
+    currencyDisplay.style.display = hasCurrency ? 'block' : 'none';
+    currencySelect.style.display = hasCurrency ? 'none' : 'block';
+    if (hasCurrency) {
+      currencySelect.value = cur;
+    }
+  }
+
   function loginUser(user) {
     currentUser = user;
     title.textContent = `${user.first} bienvenido a NEÓN-R`;
     showCurrency();
     updateBalance();
+    updateCurrencyUI();
   }
 
   registerForm.addEventListener('submit', e => {
@@ -100,7 +117,7 @@
     }
 
     const code = Math.floor(100000 + Math.random() * 900000).toString();
-    users.push({ first, last, gender, email, pass, code, confirmed: false, balance: 0 });
+    users.push({ first, last, gender, email, pass, code, confirmed: false, balance: 0, currency: null });
     saveUsers();
     currentEmail = email;
     registerForm.classList.remove('active');
@@ -139,6 +156,13 @@
       return;
     }
     loginUser(user);
+  });
+
+  currencySelect.addEventListener('change', () => {
+    if (!currentUser) return;
+    currentUser.currency = currencySelect.value;
+    saveUsers();
+    updateCurrencyUI();
   });
 
   buyBtn.addEventListener('click', () => {
