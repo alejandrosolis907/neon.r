@@ -72,8 +72,15 @@
 
     .settings-container {
       display: flex;
-      justify-content: flex-end;
+      align-items: flex-start;
       padding: 10px 30px 0;
+      gap: 12px;
+    }
+
+    .settings-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .settings {
@@ -83,6 +90,7 @@
       color: #fff;
       position: relative;
       padding: 0;
+      margin-left: auto;
     }
     .settings svg {
       width: 32px;
@@ -242,6 +250,30 @@
       color: #000;
     }
 
+    .simulator-access {
+      background: #1e90ff;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 0;
+      transition: background 0.2s ease;
+    }
+
+    .simulator-access:hover {
+      background: #1870cc;
+    }
+
+    .simulator-access.youtube-link {
+      background: #d32f2f;
+    }
+
+    .simulator-access.youtube-link:hover {
+      background: #b71c1c;
+    }
+
 
     button.transfer {
       background: #333;
@@ -331,13 +363,18 @@
   </header>
 
   <div id="settings-container" class="settings-container" style="display:none;">
-  <button id="settings-btn" class="settings" type="button" aria-label="Configuración">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
-      <path d="M10 9h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
-    </svg>
-    <span class="settings-label">Configuración</span>
-  </button>
+    <div class="settings-actions">
+      <button id="simulator-btn" class="simulator-access" type="button">COMPRAR simulador</button>
+      <button id="video-game-btn" class="simulator-access" type="button">COMPRAR VIDEO JUEGO</button>
+      <button id="youtube-btn" class="simulator-access youtube-link" type="button">YOUTUBE</button>
+    </div>
+    <button id="settings-btn" class="settings" type="button" aria-label="Configuración">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
+        <path d="M10 9h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
+      </svg>
+      <span class="settings-label">Configuración</span>
+    </button>
   </div>
 
   <div class="container">

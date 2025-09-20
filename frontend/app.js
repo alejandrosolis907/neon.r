@@ -7,6 +7,9 @@
   const currencySelect = document.getElementById('currency-select');
   const amountInput = document.getElementById('amount');
   const buyBtn = document.getElementById('buy-btn');
+  const simulatorBtn = document.getElementById('simulator-btn');
+  const videoGameBtn = document.getElementById('video-game-btn');
+  const youtubeBtn = document.getElementById('youtube-btn');
   const title = document.getElementById('title');
   const toast = document.getElementById('toast');
   const neoBalance = document.getElementById('neo-balance');
@@ -243,6 +246,37 @@
 
   transferClose.addEventListener('click', () => {
     transferModal.style.display = 'none';
+  });
+
+  simulatorBtn.addEventListener('click', () => {
+    if (!currentUser) return;
+    if (currentUser.balance < 3) {
+      showToast('necesitas al menos 3 NEO para acceder al simulador');
+      return;
+    }
+    currentUser.balance -= 3;
+    saveUsers();
+    updateBalance();
+    showToast('se descontaron 3 NEO para acceder al simulador');
+    window.open('https://resplendent-encouragement-production.up.railway.app/', '_blank');
+  });
+
+  videoGameBtn.addEventListener('click', () => {
+    if (!currentUser) return;
+    if (currentUser.balance < 6) {
+      showToast('necesitas al menos 6 NEO para comprar el video juego');
+      return;
+    }
+    currentUser.balance -= 6;
+    saveUsers();
+    updateBalance();
+    showToast('se descontaron 6 NEO para comprar el video juego');
+    window.open('https://itanimulli-production.up.railway.app/', '_blank');
+  });
+
+  youtubeBtn.addEventListener('click', () => {
+    if (!currentUser) return;
+    window.open('https://www.youtube.com/@Solix-19', '_blank');
   });
 
   transferSend.addEventListener('click', () => {
