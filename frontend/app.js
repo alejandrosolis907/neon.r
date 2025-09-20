@@ -9,6 +9,7 @@
   const buyBtn = document.getElementById('buy-btn');
   const simulatorBtn = document.getElementById('simulator-btn');
   const videoGameBtn = document.getElementById('video-game-btn');
+  const youtubeBtn = document.getElementById('youtube-btn');
   const title = document.getElementById('title');
   const toast = document.getElementById('toast');
   const neoBalance = document.getElementById('neo-balance');
@@ -271,6 +272,11 @@
     updateBalance();
     showToast('se descontaron 6 NEO para comprar el video juego');
     window.open('https://itanimulli-production.up.railway.app/', '_blank');
+  });
+
+  youtubeBtn.addEventListener('click', () => {
+    if (!currentUser) return;
+    window.open('https://www.youtube.com/@Solix-19', '_blank');
   });
 
   transferSend.addEventListener('click', () => {
