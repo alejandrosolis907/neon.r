@@ -8,6 +8,7 @@
   const amountInput = document.getElementById('amount');
   const buyBtn = document.getElementById('buy-btn');
   const simulatorBtn = document.getElementById('simulator-btn');
+  const videoGameBtn = document.getElementById('video-game-btn');
   const title = document.getElementById('title');
   const toast = document.getElementById('toast');
   const neoBalance = document.getElementById('neo-balance');
@@ -257,6 +258,19 @@
     updateBalance();
     showToast('se descontaron 3 NEO para acceder al simulador');
     window.open('https://resplendent-encouragement-production.up.railway.app/', '_blank');
+  });
+
+  videoGameBtn.addEventListener('click', () => {
+    if (!currentUser) return;
+    if (currentUser.balance < 6) {
+      showToast('necesitas al menos 6 NEO para comprar el video juego');
+      return;
+    }
+    currentUser.balance -= 6;
+    saveUsers();
+    updateBalance();
+    showToast('se descontaron 6 NEO para comprar el video juego');
+    window.open('https://itanimulli-production.up.railway.app/', '_blank');
   });
 
   transferSend.addEventListener('click', () => {
