@@ -250,14 +250,14 @@
 
   simulatorBtn.addEventListener('click', () => {
     if (!currentUser) return;
-    if (currentUser.balance < 3) {
-      showToast('necesitas al menos 3 NEO para acceder al simulador');
+    if (currentUser.balance < 6) {
+      showToast('necesitas al menos 6 NEO para rentar el simulador');
       return;
     }
-    currentUser.balance -= 3;
+    currentUser.balance -= 6;
     saveUsers();
     updateBalance();
-    showToast('se descontaron 3 NEO para acceder al simulador');
+    showToast('se descontaron 6 NEO para rentar el simulador');
     window.open('https://resplendent-encouragement-production.up.railway.app/', '_blank');
   });
 
