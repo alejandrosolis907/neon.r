@@ -92,10 +92,13 @@
       gap: 8px;
     }
 
-    .settings-container .settings {
+    .settings-tools {
       margin-left: auto;
       margin-right: 40px;
-      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
     }
 
     .settings {
@@ -183,8 +186,10 @@
         gap: 16px;
       }
 
-      .settings-container .settings {
+      .settings-tools {
         margin-left: 0;
+        margin-right: 0;
+        align-items: flex-start;
       }
     }
 
@@ -505,13 +510,25 @@
       <button id="youtube-btn" class="simulator-access youtube-link" type="button">YOUTUBE</button>
       <button id="tiktok-btn" class="simulator-access tiktok-link" type="button">TIK TOK</button>
     </div>
-    <button id="settings-btn" class="settings" type="button" aria-label="Configuración" style="display:none;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
-        <path d="M10 9h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
-      </svg>
-      <span class="settings-label">Configuración</span>
-    </button>
+    <div class="settings-tools">
+      <button id="settings-btn" class="settings" type="button" aria-label="Configuración" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
+          <path d="M10 9h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
+        </svg>
+        <span class="settings-label">Configuración</span>
+      </button>
+      <button id="participate-btn" class="settings" type="button" aria-label="Participa" title="Participa" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <polyline points="20 12 20 22 4 22 4 12"></polyline>
+          <rect x="2" y="7" width="20" height="5"></rect>
+          <line x1="12" y1="22" x2="12" y2="7"></line>
+          <path d="M12 7 7.5 2A2.5 2.5 0 0 0 5 7c0 2 2 2 7 2"></path>
+          <path d="M12 7 16.5 2A2.5 2.5 0 0 1 19 7c0 2-2 2-7 2"></path>
+        </svg>
+        <span class="settings-label">Participa</span>
+      </button>
+    </div>
   </div>
 
   <div id="cta-panel" class="container">

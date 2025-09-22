@@ -18,6 +18,7 @@
   const rateDiv = document.getElementById('rate');
   const settingsContainer = document.getElementById('settings-container');
   const settingsBtn = document.getElementById('settings-btn');
+  const participateBtn = document.getElementById('participate-btn');
   const settingsModal = document.getElementById('settings-modal');
   const settingsCurrency = document.getElementById('settings-currency');
   const closeSettings = document.getElementById('close-settings');
@@ -40,6 +41,9 @@
   settingsContainer.style.display = 'none';
   if (settingsBtn) {
     settingsBtn.style.display = 'none';
+  }
+  if (participateBtn) {
+    participateBtn.style.display = 'none';
   }
   if (neoOfferWrapper) {
     neoOfferWrapper.style.display = 'none';
@@ -161,6 +165,9 @@
     if (settingsBtn) {
       settingsBtn.style.display = 'flex';
     }
+    if (participateBtn) {
+      participateBtn.style.display = 'flex';
+    }
     if (neoOfferWrapper) {
       neoOfferWrapper.style.display = 'block';
     }
@@ -226,6 +233,11 @@
 
   settingsBtn.addEventListener('click', () => {
     settingsModal.style.display = 'flex';
+  });
+
+  participateBtn?.addEventListener('click', () => {
+    if (!currentUser) return;
+    window.open('https://www.youtube.com/shorts/R-XSFF1rVFQ', '_blank');
   });
 
   closeSettings.addEventListener('click', () => {
