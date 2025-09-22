@@ -73,9 +73,9 @@
     .settings-container {
       display: flex;
       align-items: flex-start;
-      justify-content: flex-start;
+      justify-content: space-between;
       padding: 10px 30px 0;
-      gap: 12px;
+      gap: 20px;
       width: 100%;
       flex-wrap: wrap;
     }
@@ -86,17 +86,12 @@
       gap: 8px;
     }
 
-    @media (max-width: 768px) {
-      .settings-container {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-      }
-
-      .settings {
-        margin-left: 0;
-        align-self: flex-end;
-      }
+    .settings-side {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-left: auto;
+      align-items: flex-end;
     }
 
     .settings {
@@ -107,8 +102,6 @@
       color: #fff;
       position: relative;
       padding: 10px;
-      margin-left: auto;
-      align-self: flex-start;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -168,10 +161,31 @@
       line-height: 1.3;
     }
 
-    .neo-offer-wrapper {
-      max-width: 600px;
-      margin: 20px auto 40px;
-      padding: 0 30px;
+    .settings-side .neo-offer-btn {
+      width: auto;
+      min-width: 220px;
+    }
+
+    @media (max-width: 768px) {
+      .settings-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .settings-side {
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .settings-side .neo-offer-btn {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .settings {
+        align-self: flex-end;
+      }
     }
 
     .neo-offer-btn:hover {
@@ -433,13 +447,16 @@
       <button id="video-game-btn" class="simulator-access" type="button">COMPRAR VIDEO JUEGO</button>
       <button id="youtube-btn" class="simulator-access youtube-link" type="button">YOUTUBE</button>
     </div>
-    <button id="settings-btn" class="settings" type="button" aria-label="Configuración">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
-        <path d="M10 9h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
-      </svg>
-      <span class="settings-label">Configuración</span>
-    </button>
+    <div class="settings-side">
+      <button id="settings-btn" class="settings" type="button" aria-label="Configuración">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
+          <path d="M10 9h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
+        </svg>
+        <span class="settings-label">Configuración</span>
+      </button>
+      <button class="neo-offer-btn" type="button">NEOS GRATIS POR TIEMPO LIMITADO</button>
+    </div>
   </div>
 
   <div class="container">
@@ -497,10 +514,6 @@
       <button id="transfer-btn" class="transfer" type="button">Transferir</button>
       <div id="rate">1 USD = 4 NEO</div>
     </div>
-  </div>
-
-  <div class="neo-offer-wrapper">
-    <button class="neo-offer-btn" type="button">NEOS GRATIS POR TIEMPO LIMITADO</button>
   </div>
 
   <div id="toast"></div>
