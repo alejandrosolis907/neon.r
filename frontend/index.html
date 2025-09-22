@@ -181,15 +181,23 @@
       }
 
       .settings-container {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(72px, auto);
         align-items: flex-start;
-        gap: 16px;
+        gap: 20px;
+      }
+
+      .settings-actions {
+        width: 100%;
       }
 
       .settings-tools {
         margin-left: 0;
         margin-right: 0;
-        align-items: flex-start;
+        align-self: center;
+        align-items: center;
+        justify-self: end;
+        gap: 16px;
       }
     }
 
