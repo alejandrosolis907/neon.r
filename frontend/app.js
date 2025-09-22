@@ -31,7 +31,7 @@
   const users = JSON.parse(localStorage.getItem('users') || '[]');
   let currentUser = null;
   let rates = {};
-  const MXN_PER_NEO = 21;
+  const MXN_PER_NEO = 7;
 
   userCodeSpan.style.display = 'none';
   settingsContainer.style.display = 'none';
@@ -116,7 +116,7 @@
       ? 4 / rates[cur]
       : null;
     rateDiv.textContent = cur === 'MXN'
-      ? `1 NEO = ${MXN_PER_NEO} MXN`
+      ? `${MXN_PER_NEO} MXN = 1 NEO`
       : neoPer
       ? `1 ${cur} = ${neoPer.toFixed(2)} NEO`
       : 'cargando tasa...';
@@ -268,27 +268,27 @@
 
   simulatorBtn.addEventListener('click', () => {
     if (!currentUser) return;
-    if (currentUser.balance < 6) {
-      showToast('necesitas al menos 6 NEO para rentar el simulador');
+    if (currentUser.balance < 3) {
+      showToast('necesitas al menos 3 NEO para rentar el simulador');
       return;
     }
-    currentUser.balance -= 6;
+    currentUser.balance -= 3;
     saveUsers();
     updateBalance();
-    showToast('se descontaron 6 NEO para rentar el simulador');
+    showToast('se descontaron 3 NEO para rentar el simulador');
     window.open('https://resplendent-encouragement-production.up.railway.app/', '_blank');
   });
 
   videoGameBtn.addEventListener('click', () => {
     if (!currentUser) return;
-    if (currentUser.balance < 6) {
-      showToast('necesitas al menos 6 NEO para comprar el video juego');
+    if (currentUser.balance < 3) {
+      showToast('necesitas al menos 3 NEO para rentar el video juego');
       return;
     }
-    currentUser.balance -= 6;
+    currentUser.balance -= 3;
     saveUsers();
     updateBalance();
-    showToast('se descontaron 6 NEO para comprar el video juego');
+    showToast('se descontaron 3 NEO para rentar el video juego');
     window.open('https://itanimulli-production.up.railway.app/', '_blank');
   });
 
