@@ -10,6 +10,7 @@
   const simulatorBtn = document.getElementById('simulator-btn');
   const videoGameBtn = document.getElementById('video-game-btn');
   const youtubeBtn = document.getElementById('youtube-btn');
+  const tiktokBtn = document.getElementById('tiktok-btn');
   const title = document.getElementById('title');
   const toast = document.getElementById('toast');
   const neoBalance = document.getElementById('neo-balance');
@@ -20,6 +21,7 @@
   const settingsModal = document.getElementById('settings-modal');
   const settingsCurrency = document.getElementById('settings-currency');
   const closeSettings = document.getElementById('close-settings');
+  const neoOfferWrapper = document.getElementById('neo-offer-wrapper');
   const transferBtn = document.getElementById('transfer-btn');
   const transferModal = document.getElementById('transfer-modal');
   const transferSend = document.getElementById('transfer-send');
@@ -29,8 +31,16 @@
   const users = JSON.parse(localStorage.getItem('users') || '[]');
   let currentUser = null;
   let rates = {};
+  const MXN_PER_NEO = 7;
 
   userCodeSpan.style.display = 'none';
+  settingsContainer.style.display = 'none';
+  if (settingsBtn) {
+    settingsBtn.style.display = 'none';
+  }
+  if (neoOfferWrapper) {
+    neoOfferWrapper.style.display = 'none';
+  }
 
   function saveUsers() {
     localStorage.setItem('users', JSON.stringify(users));
@@ -101,11 +111,13 @@
     const cur = currentUser?.currency || currencySelect.value || 'USD';
     amountInput.placeholder = `Cantidad en ${cur}`;
     const neoPer = cur === 'MXN'
-      ? 1 / 3
+      ? 1 / MXN_PER_NEO
       : rates[cur]
       ? 4 / rates[cur]
       : null;
-    rateDiv.textContent = neoPer
+    rateDiv.textContent = cur === 'MXN'
+      ? `${MXN_PER_NEO} MXN = 1 NEO`
+      : neoPer
       ? `1 ${cur} = ${neoPer.toFixed(2)} NEO`
       : 'cargando tasa...';
     currencyDisplay.textContent = `Divisa: ${cur}`;
@@ -142,6 +154,12 @@
     userCodeSpan.style.display = 'inline';
     userCodeSpan.textContent = user.code;
     settingsContainer.style.display = 'flex';
+    if (settingsBtn) {
+      settingsBtn.style.display = 'flex';
+    }
+    if (neoOfferWrapper) {
+      neoOfferWrapper.style.display = 'block';
+    }
     showCurrency();
     updateBalance();
     updateCurrencyUI();
@@ -225,7 +243,7 @@
     }
     const cur = currentUser?.currency || currencySelect.value || 'USD';
     const neoPer = cur === 'MXN'
-      ? 1 / 3
+      ? 1 / MXN_PER_NEO
       : rates[cur]
       ? 4 / rates[cur]
       : 0;
@@ -250,33 +268,38 @@
 
   simulatorBtn.addEventListener('click', () => {
     if (!currentUser) return;
-    if (currentUser.balance < 6) {
-      showToast('necesitas al menos 6 NEO para rentar el simulador');
+    if (currentUser.balance < 3) {
+      showToast('necesitas al menos 3 NEO para rentar el simulador');
       return;
     }
-    currentUser.balance -= 6;
+    currentUser.balance -= 3;
     saveUsers();
     updateBalance();
-    showToast('se descontaron 6 NEO para rentar el simulador');
+    showToast('se descontaron 3 NEO para rentar el simulador');
     window.open('https://resplendent-encouragement-production.up.railway.app/', '_blank');
   });
 
   videoGameBtn.addEventListener('click', () => {
     if (!currentUser) return;
-    if (currentUser.balance < 6) {
-      showToast('necesitas al menos 6 NEO para comprar el video juego');
+    if (currentUser.balance < 3) {
+      showToast('necesitas al menos 3 NEO para rentar el video juego');
       return;
     }
-    currentUser.balance -= 6;
+    currentUser.balance -= 3;
     saveUsers();
     updateBalance();
-    showToast('se descontaron 6 NEO para comprar el video juego');
+    showToast('se descontaron 3 NEO para rentar el video juego');
     window.open('https://itanimulli-production.up.railway.app/', '_blank');
   });
 
   youtubeBtn.addEventListener('click', () => {
     if (!currentUser) return;
     window.open('https://www.youtube.com/@Solix-19', '_blank');
+  });
+
+  tiktokBtn.addEventListener('click', () => {
+    if (!currentUser) return;
+    window.open('https://www.tiktok.com/@alejandro.solis945?_t=ZS-8zwfFXFVGmF&_r=1', '_blank');
   });
 
   transferSend.addEventListener('click', () => {

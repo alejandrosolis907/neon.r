@@ -55,6 +55,12 @@
       align-items: center;
       gap: 15px;
     }
+    header .right {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      align-self: flex-start;
+    }
     header img {
       height: 40px;
     }
@@ -73,8 +79,11 @@
     .settings-container {
       display: flex;
       align-items: flex-start;
+      justify-content: flex-start;
       padding: 10px 30px 0;
-      gap: 12px;
+      gap: 20px;
+      width: 100%;
+      flex-wrap: wrap;
     }
 
     .settings-actions {
@@ -83,18 +92,33 @@
       gap: 8px;
     }
 
+    .settings-container .settings {
+      margin-left: auto;
+      margin-right: 40px;
+      align-self: flex-start;
+    }
+
     .settings {
-      background: none;
-      border: none;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 60%), #161627;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
       cursor: pointer;
       color: #fff;
       position: relative;
-      padding: 0;
-      margin-left: auto;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 14px rgba(20, 255, 255, 0.18);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .settings:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 0 18px rgba(20, 255, 255, 0.32);
     }
     .settings svg {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       fill: none;
       stroke: currentColor;
       stroke-width: 2;
@@ -117,6 +141,69 @@
     }
     .settings:hover .settings-label {
       opacity: 1;
+    }
+
+    .neo-offer-btn {
+      background: linear-gradient(135deg, #ffea00, #ff7b00);
+      color: #1a0d00;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      border: none;
+      border-radius: 999px;
+      padding: 14px 24px;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(255, 153, 0, 0.6), inset 0 0 8px rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      text-align: center;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      line-height: 1.3;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      header .right {
+        align-self: flex-start;
+        align-items: flex-start;
+      }
+
+      .settings-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .settings-container .settings {
+        margin-left: 0;
+      }
+    }
+
+    .neo-offer-wrapper {
+      display: none;
+      max-width: 320px;
+      width: 100%;
+      margin: 20px auto 40px;
+      padding: 0 30px;
+    }
+
+    .neo-offer-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 25px rgba(255, 153, 0, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .neo-offer-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 0 16px rgba(255, 153, 0, 0.6), inset 0 0 8px rgba(255, 255, 255, 0.4);
     }
 
     .container {
@@ -260,9 +347,13 @@
       font-weight: bold;
       margin: 0;
       transition: background 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .simulator-access:hover {
+    .simulator-access:not(.youtube-link):not(.tiktok-link):hover {
       background: #1870cc;
     }
 
@@ -272,6 +363,17 @@
 
     .simulator-access.youtube-link:hover {
       background: #b71c1c;
+    }
+
+    .simulator-access.tiktok-link {
+      background: #000;
+      color: #fff;
+      border: 2px solid #e5e5e5;
+    }
+
+    .simulator-access.tiktok-link:hover {
+      background: #1a1a1a;
+      border-color: #fff;
     }
 
 
@@ -365,10 +467,11 @@
   <div id="settings-container" class="settings-container" style="display:none;">
     <div class="settings-actions">
       <button id="simulator-btn" class="simulator-access" type="button">RENTAR SIMULADOR</button>
-      <button id="video-game-btn" class="simulator-access" type="button">COMPRAR VIDEO JUEGO</button>
+      <button id="video-game-btn" class="simulator-access" type="button">RENTAR VIDEO JUEGO</button>
       <button id="youtube-btn" class="simulator-access youtube-link" type="button">YOUTUBE</button>
+      <button id="tiktok-btn" class="simulator-access tiktok-link" type="button">TIK TOK</button>
     </div>
-    <button id="settings-btn" class="settings" type="button" aria-label="Configuración">
+    <button id="settings-btn" class="settings" type="button" aria-label="Configuración" style="display:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
         <path d="M10 9h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
@@ -430,8 +533,12 @@
       <input type="number" id="amount" placeholder="Cantidad en USD" min="1">
       <button id="buy-btn" class="buy" type="button">Comprar</button>
       <button id="transfer-btn" class="transfer" type="button">Transferir</button>
-      <div id="rate">1 USD = 4 NEO</div>
+      <div id="rate">7 MXN = 1 NEO</div>
     </div>
+  </div>
+
+  <div id="neo-offer-wrapper" class="neo-offer-wrapper" style="display:none;">
+    <button id="neo-offer-btn" class="neo-offer-btn" type="button">NEOS GRATIS POR TIEMPO LIMITADO Y EXCLUSIVO</button>
   </div>
 
   <div id="toast"></div>
