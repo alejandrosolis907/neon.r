@@ -20,6 +20,7 @@
   const settingsModal = document.getElementById('settings-modal');
   const settingsCurrency = document.getElementById('settings-currency');
   const closeSettings = document.getElementById('close-settings');
+  const neoOfferWrapper = document.getElementById('neo-offer-wrapper');
   const transferBtn = document.getElementById('transfer-btn');
   const transferModal = document.getElementById('transfer-modal');
   const transferSend = document.getElementById('transfer-send');
@@ -31,6 +32,13 @@
   let rates = {};
 
   userCodeSpan.style.display = 'none';
+  settingsContainer.style.display = 'none';
+  if (settingsBtn) {
+    settingsBtn.style.display = 'none';
+  }
+  if (neoOfferWrapper) {
+    neoOfferWrapper.style.display = 'none';
+  }
 
   function saveUsers() {
     localStorage.setItem('users', JSON.stringify(users));
@@ -142,6 +150,12 @@
     userCodeSpan.style.display = 'inline';
     userCodeSpan.textContent = user.code;
     settingsContainer.style.display = 'flex';
+    if (settingsBtn) {
+      settingsBtn.style.display = 'flex';
+    }
+    if (neoOfferWrapper) {
+      neoOfferWrapper.style.display = 'block';
+    }
     showCurrency();
     updateBalance();
     updateCurrencyUI();
