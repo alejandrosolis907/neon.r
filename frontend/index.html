@@ -72,10 +72,10 @@
 
     .settings-container {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: flex-start;
       padding: 10px 30px 0;
-      gap: 12px;
+      gap: 18px;
       width: 100%;
       flex-wrap: wrap;
     }
@@ -89,37 +89,52 @@
     .settings-column {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
-      gap: 12px;
+      align-items: flex-start;
+      gap: 14px;
       margin-left: auto;
-      text-align: right;
+      padding-right: min(4vw, 40px);
+      max-width: min(320px, 45vw);
+      text-align: left;
     }
 
     @media (max-width: 768px) {
       .settings-container {
         flex-direction: column;
         align-items: stretch;
+        gap: 16px;
       }
 
       .settings-column {
         align-items: center;
         margin-left: 0;
+        padding-right: 0;
+        max-width: none;
         text-align: center;
       }
     }
 
     .settings {
-      background: none;
-      border: none;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 60%), #161627;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
       cursor: pointer;
       color: #fff;
       position: relative;
-      padding: 0;
-      margin-left: auto;
+      padding: 10px;
+      margin-left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 14px rgba(20, 255, 255, 0.18);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .settings:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 0 18px rgba(20, 255, 255, 0.32);
     }
     .settings svg {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       fill: none;
       stroke: currentColor;
       stroke-width: 2;
@@ -148,17 +163,22 @@
       background: linear-gradient(135deg, #ffea00, #ff7b00);
       color: #1a0d00;
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       letter-spacing: 0.05em;
       border: none;
       border-radius: 999px;
-      padding: 12px 24px;
+      padding: 14px 24px;
       cursor: pointer;
       box-shadow: 0 0 18px rgba(255, 153, 0, 0.6), inset 0 0 8px rgba(255, 255, 255, 0.4);
       text-transform: uppercase;
       text-align: center;
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      line-height: 1.3;
     }
 
     .neo-offer-btn:hover {
