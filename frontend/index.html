@@ -94,6 +94,7 @@
 
     .settings-container .settings {
       margin-left: auto;
+      margin-right: 40px;
       align-self: flex-start;
     }
 
@@ -346,9 +347,13 @@
       font-weight: bold;
       margin: 0;
       transition: background 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .simulator-access:hover {
+    .simulator-access:not(.youtube-link):not(.tiktok-link):hover {
       background: #1870cc;
     }
 
@@ -358,6 +363,15 @@
 
     .simulator-access.youtube-link:hover {
       background: #b71c1c;
+    }
+
+    .simulator-access.tiktok-link {
+      background: #000;
+      color: #fff;
+    }
+
+    .simulator-access.tiktok-link:hover {
+      background: #1a1a1a;
     }
 
 
@@ -453,6 +467,7 @@
       <button id="simulator-btn" class="simulator-access" type="button">RENTAR SIMULADOR</button>
       <button id="video-game-btn" class="simulator-access" type="button">COMPRAR VIDEO JUEGO</button>
       <button id="youtube-btn" class="simulator-access youtube-link" type="button">YOUTUBE</button>
+      <button id="tiktok-btn" class="simulator-access tiktok-link" type="button">TIK TOK</button>
     </div>
     <button id="settings-btn" class="settings" type="button" aria-label="Configuración" style="display:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

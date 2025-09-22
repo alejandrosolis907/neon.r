@@ -10,6 +10,7 @@
   const simulatorBtn = document.getElementById('simulator-btn');
   const videoGameBtn = document.getElementById('video-game-btn');
   const youtubeBtn = document.getElementById('youtube-btn');
+  const tiktokBtn = document.getElementById('tiktok-btn');
   const title = document.getElementById('title');
   const toast = document.getElementById('toast');
   const neoBalance = document.getElementById('neo-balance');
@@ -291,6 +292,11 @@
   youtubeBtn.addEventListener('click', () => {
     if (!currentUser) return;
     window.open('https://www.youtube.com/@Solix-19', '_blank');
+  });
+
+  tiktokBtn.addEventListener('click', () => {
+    if (!currentUser) return;
+    window.open('https://www.tiktok.com/@alejandro.solis945?_t=ZS-8zwfFXFVGmF&_r=1', '_blank');
   });
 
   transferSend.addEventListener('click', () => {
