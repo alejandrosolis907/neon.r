@@ -11,6 +11,9 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0a0a0f;
       color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Splash Screen */
@@ -39,6 +42,18 @@
     }
     @keyframes fadeOut {
       to { opacity: 0; visibility: hidden; }
+    }
+
+    .main-content {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: clamp(20px, 8vh, 80px) 30px 60px;
+      gap: 24px;
+      box-sizing: border-box;
     }
 
     header {
@@ -79,11 +94,13 @@
     .settings-container {
       display: flex;
       align-items: flex-start;
-      justify-content: flex-start;
-      padding: 10px 30px 0;
+      justify-content: center;
+      padding: 0 30px;
       gap: 20px;
       width: 100%;
+      max-width: 960px;
       flex-wrap: wrap;
+      margin: 0 auto;
     }
 
     .settings-actions {
@@ -177,7 +194,13 @@
         align-items: flex-start;
       }
 
+      .main-content {
+        padding: 24px 16px 40px;
+        gap: 20px;
+      }
+
       .settings-container {
+        padding: 0 16px;
         flex-direction: column;
         align-items: flex-start;
         gap: 16px;
@@ -192,8 +215,8 @@
       display: none;
       max-width: 320px;
       width: 100%;
-      margin: 20px auto 40px;
-      padding: 0 30px;
+      margin: 0 auto;
+      padding: 0;
     }
 
     .neo-offer-btn:hover {
@@ -208,7 +231,7 @@
 
     .container {
       max-width: 600px;
-      margin: 40px auto;
+      margin: 0 auto;
       background: #14141c;
       padding: 30px;
       border-radius: 12px;
@@ -464,82 +487,84 @@
     </div>
   </header>
 
-  <div id="settings-container" class="settings-container" style="display:none;">
-    <div class="settings-actions">
-      <button id="simulator-btn" class="simulator-access" type="button">RENTAR SIMULADOR</button>
-      <button id="video-game-btn" class="simulator-access" type="button">RENTAR VIDEO JUEGO</button>
-      <button id="youtube-btn" class="simulator-access youtube-link" type="button">YOUTUBE</button>
-      <button id="tiktok-btn" class="simulator-access tiktok-link" type="button">TIK TOK</button>
-    </div>
-    <button id="settings-btn" class="settings" type="button" aria-label="Configuración" style="display:none;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
-        <path d="M10 9h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
-      </svg>
-      <span class="settings-label">Configuración</span>
-    </button>
-  </div>
-
-  <div class="container">
-    <div class="token"></div>
-    <h2 id="title">Accede a tu cuenta</h2>
-    <div class="tabs">
-      <button id="tab-register" class="active">Registro</button>
-      <button id="tab-login">Ingreso</button>
+  <main class="main-content">
+    <div id="settings-container" class="settings-container" style="display:none;">
+      <div class="settings-actions">
+        <button id="simulator-btn" class="simulator-access" type="button">RENTAR SIMULADOR</button>
+        <button id="video-game-btn" class="simulator-access" type="button">RENTAR VIDEO JUEGO</button>
+        <button id="youtube-btn" class="simulator-access youtube-link" type="button">YOUTUBE</button>
+        <button id="tiktok-btn" class="simulator-access tiktok-link" type="button">TIK TOK</button>
+      </div>
+      <button id="settings-btn" class="settings" type="button" aria-label="Configuración" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
+          <path d="M10 9h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
+        </svg>
+        <span class="settings-label">Configuración</span>
+      </button>
     </div>
 
-    <form id="register-form" class="active">
-      <input id="reg-first" type="text" placeholder="Nombre" required>
-      <input id="reg-last" type="text" placeholder="Apellidos" required>
-      <select id="reg-gender" required>
-        <option value="" disabled selected>Sexo</option>
-        <option value="hombre">Hombre</option>
-        <option value="mujer">Mujer</option>
-      </select>
-      <input id="reg-email" type="email" placeholder="Correo" required>
-      <div class="password-wrapper">
-        <input id="reg-password" type="password" placeholder="Contraseña" required>
-        <span class="toggle-password" data-target="reg-password">
-          <svg class="eye eye-closed" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-          <svg class="eye eye-open" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
-        </span>
+    <div class="container">
+      <div class="token"></div>
+      <h2 id="title">Accede a tu cuenta</h2>
+      <div class="tabs">
+        <button id="tab-register" class="active">Registro</button>
+        <button id="tab-login">Ingreso</button>
       </div>
-      <div class="password-wrapper">
-        <input id="reg-password2" type="password" placeholder="Confirmar Contraseña" required>
-        <span class="toggle-password" data-target="reg-password2">
-          <svg class="eye eye-closed" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-          <svg class="eye eye-open" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
-        </span>
-      </div>
-      <button class="submit" type="submit">Crear Cuenta</button>
-    </form>
 
-    <form id="login-form">
-      <input id="login-email" type="email" placeholder="Correo" required>
-      <div class="password-wrapper">
-        <input id="login-password" type="password" placeholder="Contraseña" required>
-        <span class="toggle-password" data-target="login-password">
-          <svg class="eye eye-closed" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-          <svg class="eye eye-open" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
-        </span>
-      </div>
-      <button class="submit" type="submit">Ingresar</button>
-    </form>
+      <form id="register-form" class="active">
+        <input id="reg-first" type="text" placeholder="Nombre" required>
+        <input id="reg-last" type="text" placeholder="Apellidos" required>
+        <select id="reg-gender" required>
+          <option value="" disabled selected>Sexo</option>
+          <option value="hombre">Hombre</option>
+          <option value="mujer">Mujer</option>
+        </select>
+        <input id="reg-email" type="email" placeholder="Correo" required>
+        <div class="password-wrapper">
+          <input id="reg-password" type="password" placeholder="Contraseña" required>
+          <span class="toggle-password" data-target="reg-password">
+            <svg class="eye eye-closed" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            <svg class="eye eye-open" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </span>
+        </div>
+        <div class="password-wrapper">
+          <input id="reg-password2" type="password" placeholder="Confirmar Contraseña" required>
+          <span class="toggle-password" data-target="reg-password2">
+            <svg class="eye eye-closed" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            <svg class="eye eye-open" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </span>
+        </div>
+        <button class="submit" type="submit">Crear Cuenta</button>
+      </form>
 
-    <div id="currency-section" style="display:none; margin-top:20px;">
-      <div id="balance"><span id="neo-balance">0 NEO</span><div class="neo-icon"></div></div>
-      <select id="currency-select"></select>
-      <span id="currency-display" style="display:none;"></span>
-      <input type="number" id="amount" placeholder="Cantidad en USD" min="1">
-      <button id="buy-btn" class="buy" type="button">Comprar</button>
-      <button id="transfer-btn" class="transfer" type="button">Transferir</button>
-      <div id="rate">7 MXN = 1 NEO</div>
+      <form id="login-form">
+        <input id="login-email" type="email" placeholder="Correo" required>
+        <div class="password-wrapper">
+          <input id="login-password" type="password" placeholder="Contraseña" required>
+          <span class="toggle-password" data-target="login-password">
+            <svg class="eye eye-closed" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            <svg class="eye eye-open" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </span>
+        </div>
+        <button class="submit" type="submit">Ingresar</button>
+      </form>
+
+      <div id="currency-section" style="display:none; margin-top:20px;">
+        <div id="balance"><span id="neo-balance">0 NEO</span><div class="neo-icon"></div></div>
+        <select id="currency-select"></select>
+        <span id="currency-display" style="display:none;"></span>
+        <input type="number" id="amount" placeholder="Cantidad en USD" min="1">
+        <button id="buy-btn" class="buy" type="button">Comprar</button>
+        <button id="transfer-btn" class="transfer" type="button">Transferir</button>
+        <div id="rate">7 MXN = 1 NEO</div>
+      </div>
     </div>
-  </div>
 
-  <div id="neo-offer-wrapper" class="neo-offer-wrapper" style="display:none;">
-    <button id="neo-offer-btn" class="neo-offer-btn" type="button">NEOS GRATIS POR TIEMPO LIMITADO Y EXCLUSIVO</button>
-  </div>
+    <div id="neo-offer-wrapper" class="neo-offer-wrapper" style="display:none;">
+      <button id="neo-offer-btn" class="neo-offer-btn" type="button">NEOS GRATIS POR TIEMPO LIMITADO Y EXCLUSIVO</button>
+    </div>
+  </main>
 
   <div id="toast"></div>
 
