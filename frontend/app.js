@@ -31,6 +31,7 @@
   const users = JSON.parse(localStorage.getItem('users') || '[]');
   let currentUser = null;
   let rates = {};
+  const MXN_PER_NEO = 21;
 
   userCodeSpan.style.display = 'none';
   settingsContainer.style.display = 'none';
@@ -110,11 +111,13 @@
     const cur = currentUser?.currency || currencySelect.value || 'USD';
     amountInput.placeholder = `Cantidad en ${cur}`;
     const neoPer = cur === 'MXN'
-      ? 1 / 3
+      ? 1 / MXN_PER_NEO
       : rates[cur]
       ? 4 / rates[cur]
       : null;
-    rateDiv.textContent = neoPer
+    rateDiv.textContent = cur === 'MXN'
+      ? `1 NEO = ${MXN_PER_NEO} MXN`
+      : neoPer
       ? `1 ${cur} = ${neoPer.toFixed(2)} NEO`
       : 'cargando tasa...';
     currencyDisplay.textContent = `Divisa: ${cur}`;
@@ -240,7 +243,7 @@
     }
     const cur = currentUser?.currency || currencySelect.value || 'USD';
     const neoPer = cur === 'MXN'
-      ? 1 / 3
+      ? 1 / MXN_PER_NEO
       : rates[cur]
       ? 4 / rates[cur]
       : 0;
