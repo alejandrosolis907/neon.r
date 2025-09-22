@@ -27,11 +27,14 @@
   const transferSend = document.getElementById('transfer-send');
   const transferClose = document.getElementById('transfer-close');
   const userCodeSpan = document.getElementById('user-code');
+  const body = document.body;
 
   const users = JSON.parse(localStorage.getItem('users') || '[]');
   let currentUser = null;
   let rates = {};
   const MXN_PER_NEO = 7;
+
+  body.classList.remove('cta-aligned');
 
   userCodeSpan.style.display = 'none';
   settingsContainer.style.display = 'none';
@@ -148,6 +151,7 @@
   function loginUser(user) {
     ensureCode(user);
     currentUser = user;
+    body.classList.add('cta-aligned');
     const greet = user.gender === 'mujer' ? 'bienvenida' : 'bienvenido';
     title.textContent = `${user.first} ${greet} a NEÓN-R`;
     title.style.color = '#87ceeb';
