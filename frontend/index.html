@@ -206,6 +206,40 @@
       box-shadow: 0 0 16px rgba(255, 153, 0, 0.6), inset 0 0 8px rgba(255, 255, 255, 0.4);
     }
 
+    #cta-panel {
+      margin-top: -50px;
+    }
+
+    #cta-button {
+      margin-top: -22px;
+    }
+
+    @media (min-width: 768px) {
+      #cta-panel {
+        margin-top: -168px;
+      }
+
+      #cta-button {
+        margin-top: -44px;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      #cta-panel {
+        margin-top: -168px;
+      }
+
+      #cta-button {
+        margin-top: -46px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      #cta-panel {
+        padding-top: 50px;
+      }
+    }
+
     .container {
       max-width: 600px;
       margin: 40px auto;
@@ -480,7 +514,7 @@
     </button>
   </div>
 
-  <div class="container">
+  <div id="cta-panel" class="container">
     <div class="token"></div>
     <h2 id="title">Accede a tu cuenta</h2>
     <div class="tabs">
@@ -538,7 +572,7 @@
   </div>
 
   <div id="neo-offer-wrapper" class="neo-offer-wrapper" style="display:none;">
-    <button id="neo-offer-btn" class="neo-offer-btn" type="button">NEOS GRATIS POR TIEMPO LIMITADO Y EXCLUSIVO</button>
+    <button id="cta-button" class="neo-offer-btn" type="button">NEOS GRATIS POR TIEMPO LIMITADO Y EXCLUSIVO</button>
   </div>
 
   <div id="toast"></div>
