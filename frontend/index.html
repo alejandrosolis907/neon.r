@@ -210,6 +210,11 @@
 
       .settings-actions {
         width: 100%;
+        align-items: center;
+      }
+
+      .settings-actions .simulator-access {
+        width: 50%;
       }
 
       body.cta-aligned #cta-stack {
@@ -303,6 +308,16 @@
 
     body.cta-aligned #cta-button {
       margin-top: -22px;
+    }
+
+    @media (max-width: 768px) {
+      body.cta-aligned #cta-panel {
+        margin: 24px auto 0;
+      }
+
+      body.cta-aligned #cta-button {
+        margin-top: 16px;
+      }
     }
 
     @media (min-width: 768px) {
