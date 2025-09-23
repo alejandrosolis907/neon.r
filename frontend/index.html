@@ -92,12 +92,30 @@
       gap: 8px;
     }
 
-    .settings-tools {
-      margin-left: auto;
-      margin-right: 40px;
+    #cta-stack {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    #fab-stack {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      pointer-events: none;
+      display: none;
+    }
+
+    #fab-stack .fab-column {
+      position: absolute;
+      right: max(16px, env(safe-area-inset-right));
+      top: 120px;
       display: flex;
       flex-direction: column;
       gap: 12px;
+      pointer-events: auto;
       align-items: center;
     }
 
@@ -181,23 +199,30 @@
       }
 
       .settings-container {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(72px, auto);
-        align-items: flex-start;
-        gap: 20px;
+        display: block;
       }
 
       .settings-actions {
         width: 100%;
       }
 
-      .settings-tools {
+      #cta-stack {
+        width: calc(100% - 88px);
+        margin-right: auto;
+      }
+
+      #cta-panel {
         margin-left: 0;
         margin-right: 0;
-        align-self: center;
-        align-items: center;
-        justify-self: end;
-        gap: 16px;
+        width: 100%;
+      }
+
+      #neo-offer-wrapper {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
       }
     }
 
@@ -518,7 +543,10 @@
       <button id="youtube-btn" class="simulator-access youtube-link" type="button">YOUTUBE</button>
       <button id="tiktok-btn" class="simulator-access tiktok-link" type="button">TIK TOK</button>
     </div>
-    <div class="settings-tools">
+  </div>
+
+  <div id="fab-stack">
+    <div class="fab-column">
       <button id="settings-btn" class="settings" type="button" aria-label="Configuración" style="display:none;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
@@ -539,10 +567,11 @@
     </div>
   </div>
 
-  <div id="cta-panel" class="container">
-    <div class="token"></div>
-    <h2 id="title">Accede a tu cuenta</h2>
-    <div class="tabs">
+  <div id="cta-stack">
+    <div id="cta-panel" class="container">
+      <div class="token"></div>
+      <h2 id="title">Accede a tu cuenta</h2>
+      <div class="tabs">
       <button id="tab-register" class="active">Registro</button>
       <button id="tab-login">Ingreso</button>
     </div>
@@ -596,8 +625,9 @@
     </div>
   </div>
 
-  <div id="neo-offer-wrapper" class="neo-offer-wrapper" style="display:none;">
-    <button id="cta-button" class="neo-offer-btn" type="button">NEOS GRATIS POR TIEMPO LIMITADO Y EXCLUSIVO</button>
+    <div id="neo-offer-wrapper" class="neo-offer-wrapper" style="display:none;">
+      <button id="cta-button" class="neo-offer-btn" type="button">NEOS GRATIS POR TIEMPO LIMITADO Y EXCLUSIVO</button>
+    </div>
   </div>
 
   <div id="toast"></div>

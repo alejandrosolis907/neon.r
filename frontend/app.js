@@ -17,6 +17,7 @@
   const currencyDisplay = document.getElementById('currency-display');
   const rateDiv = document.getElementById('rate');
   const settingsContainer = document.getElementById('settings-container');
+  const fabStack = document.getElementById('fab-stack');
   const settingsBtn = document.getElementById('settings-btn');
   const participateBtn = document.getElementById('participate-btn');
   const settingsModal = document.getElementById('settings-modal');
@@ -39,6 +40,9 @@
 
   userCodeSpan.style.display = 'none';
   settingsContainer.style.display = 'none';
+  if (fabStack) {
+    fabStack.style.display = 'none';
+  }
   if (settingsBtn) {
     settingsBtn.style.display = 'none';
   }
@@ -170,6 +174,9 @@
     }
     if (neoOfferWrapper) {
       neoOfferWrapper.style.display = 'block';
+    }
+    if (fabStack) {
+      fabStack.style.display = 'block';
     }
     showCurrency();
     updateBalance();
