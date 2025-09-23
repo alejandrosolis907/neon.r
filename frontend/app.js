@@ -17,7 +17,9 @@
   const currencyDisplay = document.getElementById('currency-display');
   const rateDiv = document.getElementById('rate');
   const settingsContainer = document.getElementById('settings-container');
+  const fabStack = document.getElementById('fab-stack');
   const settingsBtn = document.getElementById('settings-btn');
+  const participateBtn = document.getElementById('participate-btn');
   const settingsModal = document.getElementById('settings-modal');
   const settingsCurrency = document.getElementById('settings-currency');
   const closeSettings = document.getElementById('close-settings');
@@ -27,16 +29,25 @@
   const transferSend = document.getElementById('transfer-send');
   const transferClose = document.getElementById('transfer-close');
   const userCodeSpan = document.getElementById('user-code');
+  const body = document.body;
 
   const users = JSON.parse(localStorage.getItem('users') || '[]');
   let currentUser = null;
   let rates = {};
   const MXN_PER_NEO = 7;
 
+  body.classList.remove('cta-aligned');
+
   userCodeSpan.style.display = 'none';
   settingsContainer.style.display = 'none';
+  if (fabStack) {
+    fabStack.style.display = 'none';
+  }
   if (settingsBtn) {
     settingsBtn.style.display = 'none';
+  }
+  if (participateBtn) {
+    participateBtn.style.display = 'none';
   }
   if (neoOfferWrapper) {
     neoOfferWrapper.style.display = 'none';
@@ -148,6 +159,7 @@
   function loginUser(user) {
     ensureCode(user);
     currentUser = user;
+    body.classList.add('cta-aligned');
     const greet = user.gender === 'mujer' ? 'bienvenida' : 'bienvenido';
     title.textContent = `${user.first} ${greet} a NEÓN-R`;
     title.style.color = '#87ceeb';
@@ -157,8 +169,14 @@
     if (settingsBtn) {
       settingsBtn.style.display = 'flex';
     }
+    if (participateBtn) {
+      participateBtn.style.display = 'flex';
+    }
     if (neoOfferWrapper) {
       neoOfferWrapper.style.display = 'block';
+    }
+    if (fabStack) {
+      fabStack.style.display = 'block';
     }
     showCurrency();
     updateBalance();
@@ -222,6 +240,11 @@
 
   settingsBtn.addEventListener('click', () => {
     settingsModal.style.display = 'flex';
+  });
+
+  participateBtn?.addEventListener('click', () => {
+    if (!currentUser) return;
+    window.open('https://www.youtube.com/shorts/R-XSFF1rVFQ', '_blank');
   });
 
   closeSettings.addEventListener('click', () => {
