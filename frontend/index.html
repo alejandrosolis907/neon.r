@@ -212,14 +212,24 @@
         width: 100%;
       }
 
-      #cta-stack {
+      body.cta-aligned #cta-stack {
         width: calc(100% - 88px);
         margin-right: auto;
       }
 
-      #cta-panel {
+      body:not(.cta-aligned) #cta-stack {
+        width: calc(100% - 44px);
+      }
+
+      body.cta-aligned #cta-panel {
         margin-left: 0;
         margin-right: 0;
+        width: 100%;
+      }
+
+      body:not(.cta-aligned) #cta-panel {
+        margin-left: auto;
+        margin-right: auto;
         width: 100%;
       }
 
