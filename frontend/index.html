@@ -11,6 +11,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0a0a0f;
       color: #fff;
+      --cta-prelogin-mobile-shift: 0mm;
     }
 
     /* Splash Screen */
@@ -98,6 +99,10 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
+    }
+
+    #cta-panel {
+      transform: translateX(var(--cta-prelogin-mobile-shift));
     }
 
     body.cta-aligned #cta-stack {
@@ -304,12 +309,8 @@
         padding: 22px 16px;
       }
 
-      body:not(.cta-aligned) #cta-panel {
-        transform: translateX(-2mm);
-      }
-
-      body.cta-aligned #cta-panel {
-        transform: translateX(0);
+      body:not(.cta-aligned) {
+        --cta-prelogin-mobile-shift: -2mm;
       }
     }
 
