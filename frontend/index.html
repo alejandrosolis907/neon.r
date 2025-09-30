@@ -11,6 +11,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0a0a0f;
       color: #fff;
+      --cta-prelogin-mobile-shift: 0mm;
     }
 
     /* Splash Screen */
@@ -100,6 +101,15 @@
       width: 100%;
     }
 
+    #cta-panel {
+      transform: translateX(var(--cta-prelogin-mobile-shift));
+    }
+
+    body.cta-aligned #cta-stack {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     body:not(.cta-aligned) #cta-stack {
       max-width: min(664px, calc(100% - 72px));
       margin: 40px auto 52px;
@@ -114,7 +124,7 @@
       display: none;
     }
 
-    #fab-stack .fab-column {
+    #fab-stack .card-actions {
       position: absolute;
       right: max(16px, env(safe-area-inset-right));
       top: 120px;
@@ -193,34 +203,54 @@
     }
 
     @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
+      .topbar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
       }
 
-      header .right {
-        align-self: flex-start;
-        align-items: flex-start;
+      .topbar .left,
+      .topbar .right {
+        width: auto;
+      }
+
+      .topbar .right {
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        align-self: center;
       }
 
       .settings-container {
-        display: block;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px;
+        width: 100%;
+        box-sizing: border-box;
+        justify-items: stretch;
       }
 
       .settings-actions {
         width: 100%;
-        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+        transform: none;
       }
 
       .settings-actions .simulator-access {
-        width: 50%;
+        width: 100%;
       }
 
       body.cta-aligned #cta-stack {
-        width: calc(100% - 88px);
+        width: calc(100% - 44px);
+        margin-left: auto;
         margin-right: auto;
-        transform: none;
+        margin-top: 32px;
       }
 
       body:not(.cta-aligned) #cta-stack {
@@ -228,9 +258,10 @@
       }
 
       body.cta-aligned #cta-panel {
-        margin-left: 0;
-        margin-right: 0;
+        margin-left: auto;
+        margin-right: auto;
         width: 100%;
+        transform: translateX(-3mm);
       }
 
       body:not(.cta-aligned) #cta-panel {
@@ -245,6 +276,54 @@
         padding-left: 0;
         padding-right: 0;
         width: 100%;
+      }
+
+      .wallet-card {
+        position: relative;
+        overflow: visible;
+      }
+
+      #cta-stack {
+        position: relative;
+      }
+
+      #fab-stack {
+        position: static;
+        inset: auto;
+        display: block;
+        pointer-events: auto;
+        z-index: auto;
+        justify-self: end;
+        align-self: start;
+      }
+
+      #fab-stack .card-actions {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-end;
+      }
+
+      body.cta-aligned .settings-container {
+        position: relative;
+        padding-right: calc(16px + 56px + 12px);
+      }
+
+      body.cta-aligned #fab-stack {
+        position: absolute;
+        top: 16px;
+        right: max(16px, env(safe-area-inset-right));
+        z-index: 10;
+      }
+
+      body.cta-aligned #fab-stack .card-actions {
+        align-items: flex-end;
+      }
+
+      .side-actions .fab {
+        width: 56px;
+        height: 56px;
       }
     }
 
@@ -284,14 +363,27 @@
       body:not(.cta-aligned) #cta-stack {
         max-width: calc(100% - 44px);
         margin: 28px auto 42px;
-        gap: 16px;
-        transform: translateX(calc(-15px + 1mm));
+        gap: 12px;
+        transform: none;
       }
 
       body:not(.cta-aligned) #cta-panel,
       body.cta-aligned #cta-panel {
         max-width: 100%;
         padding: 22px 16px;
+      }
+
+      #neo-offer-wrapper {
+        margin: 12px auto 32px;
+        padding: 0 16px;
+      }
+
+      body.cta-aligned #cta-button {
+        margin-top: 8px;
+      }
+
+      body:not(.cta-aligned) {
+        --cta-prelogin-mobile-shift: -4mm;
       }
     }
 
@@ -316,7 +408,7 @@
       }
 
       body.cta-aligned #cta-button {
-        margin-top: 16px;
+        margin-top: 8px;
       }
     }
 
@@ -343,6 +435,66 @@
     @media (max-width: 767px) {
       body.cta-aligned #cta-panel {
         padding-top: 45px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .topbar {
+        height: 56px;
+        padding: 8px 12px;
+        position: relative;
+      }
+
+      .status-badge {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+      }
+
+      .primary-actions {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        justify-self: start;
+        align-self: start;
+        max-width: min(33vw, 240px);
+        width: 100%;
+      }
+
+      .primary-actions .simulator-access {
+        width: 100%;
+      }
+
+      .side-actions {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        justify-self: end;
+        align-items: flex-end;
+      }
+
+      body.cta-aligned .auth-panel {
+        max-width: 640px;
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      body.cta-aligned .settings-container {
+        margin-bottom: 12px;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .primary-actions,
+      .side-actions {
+        position: static;
+        width: auto;
+        top: auto;
+        right: auto;
+        left: auto;
       }
     }
 
@@ -594,49 +746,49 @@
     <h1>Bienvenido a NEÓN-R</h1>
   </div>
 
-  <header>
+  <header class="topbar">
     <div class="left">
       <img src="logo.png" alt="Logo">
       <span id="user-code" class="user-code"></span>
     </div>
     <div class="right">
-      <div class="status">Sistema en línea</div>
+      <div class="status status-badge">Sistema en línea</div>
     </div>
   </header>
 
   <div id="settings-container" class="settings-container" style="display:none;">
-    <div class="settings-actions">
+    <div class="settings-actions primary-actions">
       <button id="simulator-btn" class="simulator-access" type="button">RENTAR SIMULADOR</button>
       <button id="video-game-btn" class="simulator-access" type="button">RENTAR VIDEO JUEGO</button>
       <button id="youtube-btn" class="simulator-access youtube-link" type="button">YOUTUBE</button>
       <button id="tiktok-btn" class="simulator-access tiktok-link" type="button">TIK TOK</button>
     </div>
-  </div>
-
-  <div id="fab-stack">
-    <div class="fab-column">
-      <button id="settings-btn" class="settings" type="button" aria-label="Configuración" style="display:none;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
-          <path d="M10 9h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
-        </svg>
-        <span class="settings-label">Configuración</span>
-      </button>
-      <button id="participate-btn" class="settings" type="button" aria-label="Participa" title="Participa" style="display:none;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-          <polyline points="20 12 20 22 4 22 4 12"></polyline>
-          <rect x="2" y="7" width="20" height="5"></rect>
-          <line x1="12" y1="22" x2="12" y2="7"></line>
-          <path d="M12 7 7.5 2A2.5 2.5 0 0 0 5 7c0 2 2 2 7 2"></path>
-          <path d="M12 7 16.5 2A2.5 2.5 0 0 1 19 7c0 2-2 2-7 2"></path>
-        </svg>
-        <span class="settings-label">Participa</span>
-      </button>
+    <div id="fab-stack" class="side-actions">
+      <div class="card-actions">
+        <button id="settings-btn" class="settings fab fab-settings" type="button" aria-label="Configuración" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
+            <path d="M10 9h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
+          </svg>
+          <span class="settings-label">Configuración</span>
+        </button>
+        <button id="participate-btn" class="settings fab fab-gift" type="button" aria-label="Participa" title="Participa" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <polyline points="20 12 20 22 4 22 4 12"></polyline>
+            <rect x="2" y="7" width="20" height="5"></rect>
+            <line x1="12" y1="22" x2="12" y2="7"></line>
+            <path d="M12 7 7.5 2A2.5 2.5 0 0 0 5 7c0 2 2 2 7 2"></path>
+            <path d="M12 7 16.5 2A2.5 2.5 0 0 1 19 7c0 2-2 2-7 2"></path>
+          </svg>
+          <span class="settings-label">Participa</span>
+        </button>
+      </div>
     </div>
+
   </div>
 
   <div id="cta-stack">
-    <div id="cta-panel" class="container">
+    <div id="cta-panel" class="container wallet-card auth-panel">
       <div class="token"></div>
       <h2 id="title">Accede a tu cuenta</h2>
       <div class="tabs">
