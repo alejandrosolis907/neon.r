@@ -203,24 +203,23 @@
     }
 
     @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: stretch;
+      .topbar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .topbar .left,
+      .topbar .right {
+        width: auto;
+      }
+
+      .topbar .right {
+        flex-direction: row;
+        align-items: center;
         gap: 12px;
-      }
-
-      header .left {
-        width: 100%;
-      }
-
-      header .right {
-        align-self: stretch;
-        align-items: flex-end;
-        width: 100%;
-      }
-
-      header .status {
-        align-self: flex-end;
+        align-self: center;
       }
 
       .settings-container {
@@ -288,36 +287,26 @@
       }
 
       #fab-stack {
-        position: static;
+        position: fixed;
+        top: 72px;
+        left: 12px;
         inset: auto;
-        pointer-events: auto;
-        z-index: auto;
-        margin: 0;
-        width: auto;
-        max-width: none;
-        padding: 0;
         display: flex;
-        flex: 0 0 auto;
-        justify-self: end;
-        align-self: flex-start;
-        justify-content: flex-end;
-        align-items: flex-start;
+        pointer-events: auto;
+        z-index: 60;
       }
 
       #fab-stack .card-actions {
         position: static;
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        align-items: flex-end;
-        pointer-events: auto;
+        gap: 10px;
+        align-items: flex-start;
       }
 
-      .fab {
-        position: static;
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
+      .side-actions .fab {
+        width: 56px;
+        height: 56px;
       }
     }
 
@@ -429,6 +418,61 @@
     @media (max-width: 767px) {
       body.cta-aligned #cta-panel {
         padding-top: 45px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .topbar {
+        height: 56px;
+        padding: 8px 12px;
+        position: relative;
+      }
+
+      .status-badge {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+      }
+
+      .primary-actions {
+        position: fixed;
+        top: 72px;
+        right: 12px;
+        width: 33%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .primary-actions .simulator-access {
+        width: 100%;
+      }
+
+      .side-actions {
+        position: fixed;
+        top: 72px;
+        left: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      body.cta-aligned .auth-panel {
+        max-width: 640px;
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .primary-actions,
+      .side-actions {
+        position: static;
+        width: auto;
+        top: auto;
+        right: auto;
+        left: auto;
       }
     }
 
@@ -680,24 +724,24 @@
     <h1>Bienvenido a NEÓN-R</h1>
   </div>
 
-  <header>
+  <header class="topbar">
     <div class="left">
       <img src="logo.png" alt="Logo">
       <span id="user-code" class="user-code"></span>
     </div>
     <div class="right">
-      <div class="status">Sistema en línea</div>
+      <div class="status status-badge">Sistema en línea</div>
     </div>
   </header>
 
   <div id="settings-container" class="settings-container" style="display:none;">
-    <div class="settings-actions">
+    <div class="settings-actions primary-actions">
       <button id="simulator-btn" class="simulator-access" type="button">RENTAR SIMULADOR</button>
       <button id="video-game-btn" class="simulator-access" type="button">RENTAR VIDEO JUEGO</button>
       <button id="youtube-btn" class="simulator-access youtube-link" type="button">YOUTUBE</button>
       <button id="tiktok-btn" class="simulator-access tiktok-link" type="button">TIK TOK</button>
     </div>
-    <div id="fab-stack">
+    <div id="fab-stack" class="side-actions">
       <div class="card-actions">
         <button id="settings-btn" class="settings fab fab-settings" type="button" aria-label="Configuración" style="display:none;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -722,7 +766,7 @@
   </div>
 
   <div id="cta-stack">
-    <div id="cta-panel" class="container wallet-card">
+    <div id="cta-panel" class="container wallet-card auth-panel">
       <div class="token"></div>
       <h2 id="title">Accede a tu cuenta</h2>
       <div class="tabs">
