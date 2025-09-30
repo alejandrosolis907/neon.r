@@ -124,7 +124,7 @@
       display: none;
     }
 
-    #fab-stack .fab-column {
+    #fab-stack .card-actions {
       position: absolute;
       right: max(16px, env(safe-area-inset-right));
       top: 120px;
@@ -258,8 +258,43 @@
         width: 100%;
       }
 
-      #fab-stack .fab-column {
-        transform: translateX(5mm);
+      .wallet-card {
+        position: relative;
+        overflow: visible;
+      }
+
+      #fab-stack {
+        position: static;
+        inset: auto;
+        pointer-events: auto;
+        z-index: auto;
+      }
+
+      #fab-stack .card-actions {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        display: block;
+        gap: 0;
+        pointer-events: auto;
+        z-index: 10;
+      }
+
+      .fab {
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+      }
+
+      .fab-settings {
+        top: 0;
+        right: 0;
+      }
+
+      .fab-gift {
+        top: 60px;
+        right: 0;
       }
     }
 
@@ -632,30 +667,29 @@
     </div>
   </div>
 
-  <div id="fab-stack">
-    <div class="fab-column">
-      <button id="settings-btn" class="settings" type="button" aria-label="Configuración" style="display:none;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
-          <path d="M10 9h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
-        </svg>
-        <span class="settings-label">Configuración</span>
-      </button>
-      <button id="participate-btn" class="settings" type="button" aria-label="Participa" title="Participa" style="display:none;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-          <polyline points="20 12 20 22 4 22 4 12"></polyline>
-          <rect x="2" y="7" width="20" height="5"></rect>
-          <line x1="12" y1="22" x2="12" y2="7"></line>
-          <path d="M12 7 7.5 2A2.5 2.5 0 0 0 5 7c0 2 2 2 7 2"></path>
-          <path d="M12 7 16.5 2A2.5 2.5 0 0 1 19 7c0 2-2 2-7 2"></path>
-        </svg>
-        <span class="settings-label">Participa</span>
-      </button>
-    </div>
-  </div>
-
   <div id="cta-stack">
-    <div id="cta-panel" class="container">
+    <div id="cta-panel" class="container wallet-card">
+      <div id="fab-stack">
+        <div class="card-actions">
+          <button id="settings-btn" class="settings fab fab-settings" type="button" aria-label="Configuración" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 0 0 2.572-1.065z"/>
+              <path d="M10 9h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
+            </svg>
+            <span class="settings-label">Configuración</span>
+          </button>
+          <button id="participate-btn" class="settings fab fab-gift" type="button" aria-label="Participa" title="Participa" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <polyline points="20 12 20 22 4 22 4 12"></polyline>
+              <rect x="2" y="7" width="20" height="5"></rect>
+              <line x1="12" y1="22" x2="12" y2="7"></line>
+              <path d="M12 7 7.5 2A2.5 2.5 0 0 0 5 7c0 2 2 2 7 2"></path>
+              <path d="M12 7 16.5 2A2.5 2.5 0 0 1 19 7c0 2-2 2-7 2"></path>
+            </svg>
+            <span class="settings-label">Participa</span>
+          </button>
+        </div>
+      </div>
       <div class="token"></div>
       <h2 id="title">Accede a tu cuenta</h2>
       <div class="tabs">
