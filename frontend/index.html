@@ -215,17 +215,27 @@
       }
 
       .settings-container {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        flex-wrap: nowrap;
+        padding-left: 20px;
+        padding-right: 20px;
       }
 
       .settings-actions {
-        width: 100%;
-        align-items: flex-start;
+        flex: 1 1 auto;
+        width: auto;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        align-items: stretch;
         transform: none;
       }
 
       .settings-actions .simulator-access {
-        width: 50%;
+        width: 100%;
       }
 
       body.cta-aligned #cta-stack {
@@ -268,20 +278,21 @@
       }
 
       #fab-stack {
-        position: relative;
+        position: static;
         inset: auto;
         pointer-events: auto;
         z-index: auto;
-        text-align: right;
-        margin: 0 auto 12px;
-        width: 100%;
-        max-width: calc(100% - 44px);
+        margin: 0;
+        width: auto;
+        max-width: none;
         padding: 0;
+        display: flex;
+        flex: 0 0 auto;
       }
 
       #fab-stack .card-actions {
         position: static;
-        display: inline-flex;
+        display: flex;
         flex-direction: column;
         gap: 12px;
         align-items: flex-end;
@@ -672,9 +683,6 @@
       <button id="youtube-btn" class="simulator-access youtube-link" type="button">YOUTUBE</button>
       <button id="tiktok-btn" class="simulator-access tiktok-link" type="button">TIK TOK</button>
     </div>
-  </div>
-
-  <div id="cta-stack">
     <div id="fab-stack">
       <div class="card-actions">
         <button id="settings-btn" class="settings fab fab-settings" type="button" aria-label="Configuración" style="display:none;">
@@ -696,6 +704,10 @@
         </button>
       </div>
     </div>
+
+  </div>
+
+  <div id="cta-stack">
     <div id="cta-panel" class="container wallet-card">
       <div class="token"></div>
       <h2 id="title">Accede a tu cuenta</h2>
