@@ -20,6 +20,7 @@
   const fabStack = document.getElementById('fab-stack');
   const settingsBtn = document.getElementById('settings-btn');
   const participateBtn = document.getElementById('participate-btn');
+  const spotifyBtn = document.getElementById('spotify-btn');
   const settingsModal = document.getElementById('settings-modal');
   const settingsCurrency = document.getElementById('settings-currency');
   const closeSettings = document.getElementById('close-settings');
@@ -48,6 +49,9 @@
   }
   if (participateBtn) {
     participateBtn.style.display = 'none';
+  }
+  if (spotifyBtn) {
+    spotifyBtn.style.display = 'none';
   }
   if (neoOfferWrapper) {
     neoOfferWrapper.style.display = 'none';
@@ -114,8 +118,15 @@
     currencySection.style.display = 'block';
   }
 
+  function formatNeo(value) {
+    return Number(value).toLocaleString('es-MX', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 4,
+    });
+  }
+
   function updateBalance() {
-    neoBalance.textContent = `${currentUser.balance} NEO`;
+    neoBalance.textContent = `${formatNeo(currentUser.balance)} NEO`;
   }
 
   function updateCurrencyUI() {
@@ -171,6 +182,9 @@
     }
     if (participateBtn) {
       participateBtn.style.display = 'flex';
+    }
+    if (spotifyBtn) {
+      spotifyBtn.style.display = 'flex';
     }
     if (neoOfferWrapper) {
       neoOfferWrapper.style.display = 'block';
@@ -247,6 +261,11 @@
     window.open('https://www.youtube.com/shorts/w9VK-NoK7Wg', '_blank');
   });
 
+  spotifyBtn?.addEventListener('click', () => {
+    if (!currentUser) return;
+    window.open('https://www.spotify.com/mx/family/join/invite/8cZc5xC2Y8ZzaAb/', '_blank');
+  });
+
   closeSettings.addEventListener('click', () => {
     settingsModal.style.display = 'none';
   });
@@ -274,11 +293,11 @@
       showToast('tasa no disponible');
       return;
     }
-    const neo = Math.round(amount * neoPer);
-    currentUser.balance += neo;
+    const neo = Math.round(amount * neoPer * 10000) / 10000;
+    currentUser.balance = Math.round((currentUser.balance + neo) * 10000) / 10000;
     saveUsers();
     updateBalance();
-    showToast(`compraste ${neo} NEO`);
+    showToast(`compraste ${formatNeo(neo)} NEO`);
   });
 
   transferBtn.addEventListener('click', () => {
