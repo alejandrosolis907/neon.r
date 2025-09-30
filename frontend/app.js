@@ -118,8 +118,15 @@
     currencySection.style.display = 'block';
   }
 
+  function formatNeo(value) {
+    return Number(value).toLocaleString('es-MX', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 4,
+    });
+  }
+
   function updateBalance() {
-    neoBalance.textContent = `${currentUser.balance} NEO`;
+    neoBalance.textContent = `${formatNeo(currentUser.balance)} NEO`;
   }
 
   function updateCurrencyUI() {
@@ -286,11 +293,11 @@
       showToast('tasa no disponible');
       return;
     }
-    const neo = Math.round(amount * neoPer);
-    currentUser.balance += neo;
+    const neo = Math.round(amount * neoPer * 10000) / 10000;
+    currentUser.balance = Math.round((currentUser.balance + neo) * 10000) / 10000;
     saveUsers();
     updateBalance();
-    showToast(`compraste ${neo} NEO`);
+    showToast(`compraste ${formatNeo(neo)} NEO`);
   });
 
   transferBtn.addEventListener('click', () => {
