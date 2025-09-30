@@ -20,6 +20,7 @@
   const fabStack = document.getElementById('fab-stack');
   const settingsBtn = document.getElementById('settings-btn');
   const participateBtn = document.getElementById('participate-btn');
+  const spotifyBtn = document.getElementById('spotify-btn');
   const settingsModal = document.getElementById('settings-modal');
   const settingsCurrency = document.getElementById('settings-currency');
   const closeSettings = document.getElementById('close-settings');
@@ -48,6 +49,9 @@
   }
   if (participateBtn) {
     participateBtn.style.display = 'none';
+  }
+  if (spotifyBtn) {
+    spotifyBtn.style.display = 'none';
   }
   if (neoOfferWrapper) {
     neoOfferWrapper.style.display = 'none';
@@ -172,6 +176,9 @@
     if (participateBtn) {
       participateBtn.style.display = 'flex';
     }
+    if (spotifyBtn) {
+      spotifyBtn.style.display = 'flex';
+    }
     if (neoOfferWrapper) {
       neoOfferWrapper.style.display = 'block';
     }
@@ -245,6 +252,11 @@
   participateBtn?.addEventListener('click', () => {
     if (!currentUser) return;
     window.open('https://www.youtube.com/shorts/w9VK-NoK7Wg', '_blank');
+  });
+
+  spotifyBtn?.addEventListener('click', () => {
+    if (!currentUser) return;
+    window.open('https://www.spotify.com/mx/family/join/invite/8cZc5xC2Y8ZzaAb/', '_blank');
   });
 
   closeSettings.addEventListener('click', () => {
