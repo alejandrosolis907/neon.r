@@ -244,7 +244,7 @@
 
   participateBtn?.addEventListener('click', () => {
     if (!currentUser) return;
-    window.open('https://www.youtube.com/shorts/R-XSFF1rVFQ', '_blank');
+    window.open('https://www.youtube.com/shorts/w9VK-NoK7Wg', '_blank');
   });
 
   closeSettings.addEventListener('click', () => {
